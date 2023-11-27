@@ -1,3 +1,5 @@
+package com.example.pr1_m03;
+
 import javafx.event.ActionEvent;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
