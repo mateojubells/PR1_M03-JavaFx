@@ -72,17 +72,31 @@ public class MainPageController {
 
         );
 
-        chrt_gastos.setData(ingresosChartData);
+        chrt_gastos.setData(gastosChartData);
     }
 
+    /**
+     * Función que permite añadir información a la gráfica de ingresos
+     */
     private void addDataIngresosChart() {
         ObservableList<PieChart.Data> ingresosChartData = chrt_ingresos.getData();
-        // TODO: Crear función para añadir los ingresos creados
+        // TODO: Acabar función para añadir los ingresos creados
     }
 
+    /**
+     * Función que permite añadir información a la gráfica de gastos
+     */
     private void addDataGastosChart() {
         ObservableList<PieChart.Data> gastosChartData = chrt_gastos.getData();
-        // TODO: Crear funcion para añadir los gastos creados
+        // TODO: Acabar funcion para añadir los gastos creados
+    }
+
+    /**
+     * Función que permite actualizar las label resumen de gastos e ingresos cada vez que se añada
+     * información
+     */
+    private void actualizarTextosResumen() {
+        // TODO: Acabar la funcón para actualizar las label resumen de gasto e ingresos
     }
 
 }
