@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pr1_m03.EarningController">
+    <padding>
+        <Insets bottom="50" left="50" right="50" top="50"/>
+    </padding>
+    <Label text="Añadir Ingreso"/>
+    <HBox spacing="10.0">
+        <Label text="Fecha:"/>
+        <DatePicker fx:id="datePicker"/>
+    </HBox>
+    <HBox spacing="10.0">
+        <Label text="Categoría:"/>
+        <ComboBox fx:id="categoryComboBox">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Trabajo"/>
+                    <String fx:value="Bizum"/>
+                    <String fx:value="Ventas"/>
+                    <String fx:value="Regalos"/>
+                    <String fx:value="Otros"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+    </HBox>
+    <HBox spacing="10.0">
+        <Label text="Cantidad:"/>
+        <TextField fx:id="amountField"/>
+    </HBox>
+    <HBox spacing="10.0">
+        <Label text="Descripción:"/>
+        <TextField fx:id="descriptionField"/>
+    </HBox>
+    <Button onAction="#addEarning" text="Añadir Ingreso"/>
+</VBox>
