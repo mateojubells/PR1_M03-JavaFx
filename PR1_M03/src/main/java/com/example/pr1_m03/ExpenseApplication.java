@@ -8,12 +8,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class IngresoDineroController extends Application {
+public class ExpenseApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("ingresos.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("add-expense.fxml"));
             Parent root = loader.load();
 
             primaryStage.setTitle("Registro de Gastos");
