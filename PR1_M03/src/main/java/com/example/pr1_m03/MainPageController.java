@@ -84,7 +84,7 @@ public class MainPageController {
     }
 
     /**
-     * Función que permite añadir información a la gráfica de gastos
+     * Función que permite añadir información a la gráfica de gastos.
      */
     private void addDataGastosChart() {
         ObservableList<PieChart.Data> gastosChartData = chrt_gastos.getData();
