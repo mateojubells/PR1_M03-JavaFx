@@ -1,5 +1,4 @@
 package com.example.pr1_m03;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,6 +18,7 @@ public class ExpenseApplication extends Application {
             primaryStage.setTitle("Registro de Gastos");
             primaryStage.setScene(new Scene(root, 600, 400));
             primaryStage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -28,3 +28,4 @@ public class ExpenseApplication extends Application {
         launch(args);
     }
 }
+
