@@ -21,6 +21,7 @@ public class MainPageController {
     public Button btn_gastos;
     public Label lbl_gastos;
     public Label lbl_ingresos;
+    public Button btn_detalles;
 
     private Scene scene;
     private Parent root;
@@ -58,6 +59,20 @@ public class MainPageController {
         Stage newStage = new Stage();
         newStage.setScene(scene);
         newStage.setTitle("Agregar Gasto");
+
+        newStage.show();
+        // Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+    }
+
+    public void goDetalles(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("detalles.fxml"));
+        //FIXME: Agregar la vista correcta
+        root = fxmlLoader.load();
+        scene = new Scene(root);
+
+        Stage newStage = new Stage();
+        newStage.setScene(scene);
+        newStage.setTitle("Detalles");
 
         newStage.show();
         // Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
