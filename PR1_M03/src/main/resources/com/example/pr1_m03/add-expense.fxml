@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
 
-<?import javafx.geometry.Insets?>
 <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pr1_m03.ExpenseController">
     <padding>
-        <Insets top="50" right="50" bottom="50" left="50"/>
+        <Insets bottom="50" left="50" right="50" top="50" />
     </padding>
     <children>
         <Label text="Añadir Gasto" />
-        <HBox spacing="10.0">
+        <HBox alignment="BASELINE_CENTER" spacing="10.0">
             <Label text="Fecha:" />
             <DatePicker fx:id="datePicker" />
         </HBox>
-        <HBox spacing="10.0">
+        <HBox alignment="BASELINE_CENTER" spacing="10.0">
             <Label text="Categoría:" />
             <ComboBox fx:id="categoryComboBox">
                 <items>
@@ -29,12 +29,13 @@
                     </FXCollections>
                 </items>
             </ComboBox>
+         <Label layoutX="184.0" layoutY="14.0" text="               " />
         </HBox>
-        <HBox spacing="10.0">
+        <HBox alignment="BASELINE_CENTER" spacing="10.0">
             <Label text="Cantidad:" />
             <TextField fx:id="amountField" />
         </HBox>
-        <HBox spacing="10.0">
+        <HBox alignment="BASELINE_CENTER" spacing="10.0">
             <Label text="Descripción:" />
             <TextField fx:id="descriptionField" />
         </HBox>
