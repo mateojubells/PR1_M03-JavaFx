@@ -21,6 +21,7 @@ public class MainPageController {
 
     private Scene scene;
     private Parent root;
+    XYChart.Series series = new XYChart.Series();
 
     /**
      * Función que abre una ventana con la página de añadir gastos
@@ -38,6 +39,7 @@ public class MainPageController {
         newStage.setTitle("Agregar Gasto");
 
         newStage.show();
+        addDataIngresosChart();
         // Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     }
 
@@ -57,15 +59,14 @@ public class MainPageController {
 
     @FXML
     private void initialize() {
-        XYChart.Series series = new XYChart.Series();
         series.setName("Total mensual");
-        addDataIngresosChart(series);
+        //TODO: Importar datos de JSON
     }
 
     /**
      * Función que permite añadir información a la gráfica de ingresos
      */
-    private void addDataIngresosChart(XYChart.Series series) {
+    private void addDataIngresosChart() {
         // TODO: Acabar función para añadir los ingresos creados
         /*series.getData().add(new XYChart.Data<>("1", 500.23));
         series.getData().add(new XYChart.Data<>("2", 200.55));
