@@ -51,7 +51,7 @@ public class MainPageController {
      * @throws IOException Excepción en caso de error
      */
     public void goGastos(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("add-expense.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("add-transaction.fxml"));
         root = fxmlLoader.load();
         scene = new Scene(root);
 

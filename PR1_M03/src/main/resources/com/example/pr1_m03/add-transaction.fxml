@@ -11,7 +11,7 @@
         <Insets bottom="50" left="50" right="50" top="50" />
     </padding>
     <children>
-        <Label text="Añadir Gasto" />
+        <Label text="Añadir Transaccion" />
         <HBox alignment="BASELINE_CENTER" prefHeight="6.0" prefWidth="499.0" spacing="10.0">
          <VBox prefHeight="19.0" prefWidth="100.0">
             <children>

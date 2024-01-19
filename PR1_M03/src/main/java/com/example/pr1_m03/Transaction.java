@@ -2,13 +2,13 @@ package com.example.pr1_m03;
 
 import java.time.LocalDate;
 
-public class Expense {
+public class Transaction {
     public LocalDate date;
     public String category;
     public double amount;
     public String description;
 
-    public Expense(LocalDate date, String category, double amount, String description) {
+    public Transaction(LocalDate date, String category, double amount, String description) {
         this.date = date;
         this.category = category;
         this.amount = amount;

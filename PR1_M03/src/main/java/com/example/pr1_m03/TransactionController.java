@@ -5,12 +5,13 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
-public class EarningController {
+public class TransactionController {
     public DatePicker datePicker;
     public ComboBox categoryComboBox;
     public TextField amountField;
     public TextField descriptionField;
 
     public void addEarning(ActionEvent actionEvent) {
+        
     }
 }
