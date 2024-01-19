@@ -23,6 +23,9 @@ public class MainPageController {
     public Label lbl_ingresos;
     public Button btn_detalles;
 
+    private TransactionList transactionList;
+
+
     private Scene scene;
     private Parent root;
 
@@ -43,6 +46,11 @@ public class MainPageController {
 
         newStage.show();
         // Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+    }
+
+    public void setTransactionList(TransactionList transactionList) {
+        this.transactionList = transactionList;
+        // Puedes inicializar las gráficas y otras configuraciones aquí si es necesario.
     }
 
     /**
