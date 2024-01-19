@@ -3,30 +3,34 @@
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pr1_m03.MainPageController">
    <HBox alignment="TOP_CENTER" prefHeight="338.0" prefWidth="600.0">
-      <PieChart fx:id="chrt_ingresos" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="338.0" prefWidth="296.0" title="Ingresos" />
-      <Label opacity="0.0" text="Label" />
-      <PieChart fx:id="chrt_gastos" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="338.0" prefWidth="296.0" title="Gastos" />
+      <LineChart fx:id="chrt_balance" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="338.0" prefWidth="600.0" title="Balance del año">
+         <xAxis>
+            <CategoryAxis label="Meses" side="BOTTOM" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis label="Total" side="LEFT" />
+         </yAxis>
+      </LineChart>
    </HBox>
    <HBox layoutY="338.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="62.0" prefWidth="600.0">
       <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="63.0" prefWidth="382.0">
-         <Button fx:id="btn_ingresos" mnemonicParsing="false" onAction="#goIngresos" text="Ir a Ingresos" />
-         <Label opacity="0.0" text="Label" />
-         <Button fx:id="btn_gastos" layoutX="161.0" layoutY="29.0" mnemonicParsing="false" onAction="#goGastos" text="Ir a Gastos" />
+         <Button fx:id="btn_gastos" layoutX="161.0" layoutY="29.0" mnemonicParsing="false" onAction="#goTransactions" text="Ir a Gastos" />
          <Label layoutX="192.0" layoutY="33.0" opacity="0.0" text="Label" />
          <Button fx:id="btn_detalles" layoutX="220.0" layoutY="29.0" mnemonicParsing="false" onAction="#goDetalles" text="Ir a Detalles" />
       </HBox>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="63.0" prefWidth="219.0">
-         <Label text="Resumen del mes:" />
+         <Label text="Resumen del año:" />
+         <Label>
+            <font>
+               <Font size="8.0" />
+            </font></Label>
          <HBox prefHeight="19.0" prefWidth="100.0">
-            <Label text="Gastos: " textFill="RED" />
-            <Label fx:id="lbl_gastos" layoutX="10.0" layoutY="10.0" text="0€" textFill="RED" />
-         </HBox>
-         <HBox layoutX="10.0" layoutY="27.0" prefHeight="19.0" prefWidth="100.0">
-            <Label text="Ingresos: " textFill="#25ce04" />
-            <Label fx:id="lbl_ingresos" layoutX="10.0" layoutY="10.0" text="0€" textFill="#25ce04" />
+            <Label text="Total: " textFill="RED" />
+            <Label fx:id="lbl_total" layoutX="10.0" layoutY="10.0" text="0€" textFill="RED" />
          </HBox>
       </VBox>
    </HBox>
