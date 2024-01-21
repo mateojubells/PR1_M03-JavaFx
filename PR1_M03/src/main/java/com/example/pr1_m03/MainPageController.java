@@ -9,6 +9,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import javax.json.Json;
@@ -26,16 +27,11 @@ public class MainPageController {
     public Button btn_detalles;
     public LineChart chrt_balance;
 
-    private TransactionList transactionList;
-
-
     private Scene scene;
     private Parent root;
     private XYChart.Series series = new XYChart.Series();
-    private TransactionList tList = new TransactionList();
 
     public void setTransactionList(TransactionList transactionList) {
-        this.transactionList = transactionList;
         // Puedes inicializar las gráficas y otras configuraciones aquí si es necesario.
     }
 
@@ -54,8 +50,10 @@ public class MainPageController {
         newStage.setScene(scene);
         newStage.setTitle("Agregar Gasto");
 
+        newStage.setOnHidden(event->{
+            addTransactionData();
+        });
         newStage.show();
-        addTransactionData();
         // Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     }
 
@@ -84,7 +82,9 @@ public class MainPageController {
      * Función que permite añadir información a la gráfica de ingresos
      */
     private void addTransactionData() {
+        series.getData().clear();
         int [] monthsTotals = new int[12];
+        int yearTotal = 0;
         // TODO: Acabar función para añadir los ingresos creados
         try (JsonReader reader = Json.createReader(new FileReader("Transactions.json"))) {
             JsonArray jsonArray = reader.readArray();
@@ -131,5 +131,17 @@ public class MainPageController {
         series.getData().add(new XYChart.Data<>("11", monthsTotals[10]));
         series.getData().add(new XYChart.Data<>("12", monthsTotals[11]));
         chrt_balance.getData().add(series);
+
+        for (int i = 0; i < monthsTotals.length; i++) {
+            yearTotal += monthsTotals[i];
+        }
+
+        if (yearTotal <= 0){
+            lbl_total.setTextFill(Color.RED);
+            lbl_total.setText(yearTotal + "€");
+        } else {
+            lbl_total.setTextFill(Color.GREEN);
+            lbl_total.setText(yearTotal + "€");
+        }
     }
 }
