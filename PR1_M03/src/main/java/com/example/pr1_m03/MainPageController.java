@@ -11,7 +11,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.Month;
 
 public class MainPageController {
     public Button btn_gastos;
@@ -70,24 +77,59 @@ public class MainPageController {
     private void initialize() {
         series.setName("Total mensual");
         //TODO: Importar datos de JSON
+        addTransactionData();
     }
 
     /**
      * Función que permite añadir información a la gráfica de ingresos
      */
     private void addTransactionData() {
+        int [] monthsTotals = new int[12];
         // TODO: Acabar función para añadir los ingresos creados
-        /*series.getData().add(new XYChart.Data<>("1", 500.23));
-        series.getData().add(new XYChart.Data<>("2", 200.55));
-        series.getData().add(new XYChart.Data<>("4", -300));
-        series.getData().add(new XYChart.Data<>("5", -22.4));
-        series.getData().add(new XYChart.Data<>("6", 432.54));
-        series.getData().add(new XYChart.Data<>("7", 399.99));
-        series.getData().add(new XYChart.Data<>("8", 232.12));
-        series.getData().add(new XYChart.Data<>("9", 134.54));
-        series.getData().add(new XYChart.Data<>("10", 50.03));
-        series.getData().add(new XYChart.Data<>("11", 0.03));
-        series.getData().add(new XYChart.Data<>("12", -3));
-        chrt_balance.getData().add(series);*/
+        try (JsonReader reader = Json.createReader(new FileReader("Transactions.json"))) {
+            JsonArray jsonArray = reader.readArray();
+            for (JsonObject jsonObject : jsonArray.getValuesAs(JsonObject.class)) {
+                int amount = jsonObject.getInt("amount");
+                String dateString = jsonObject.getString("date");
+
+                LocalDate date = LocalDate.parse(dateString);
+                LocalDate currentDate = LocalDate.now();
+
+                if (date.getYear() == currentDate.getYear()) {
+                    Month month = date.getMonth();
+
+                    switch (month){
+                        case JANUARY -> monthsTotals[0] += amount;
+                        case FEBRUARY -> monthsTotals[1] += amount;
+                        case MARCH -> monthsTotals[2] += amount;
+                        case APRIL -> monthsTotals[3] += amount;
+                        case MAY -> monthsTotals[4] += amount;
+                        case JUNE -> monthsTotals[5] += amount;
+                        case JULY -> monthsTotals[6] += amount;
+                        case AUGUST -> monthsTotals[7] += amount;
+                        case SEPTEMBER -> monthsTotals[8] += amount;
+                        case OCTOBER -> monthsTotals[9] += amount;
+                        case NOVEMBER -> monthsTotals[10] += amount;
+                        case DECEMBER -> monthsTotals[11] += amount;
+                    }
+                }
+            }
+            
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        series.getData().add(new XYChart.Data<>("1", monthsTotals[0]));
+        series.getData().add(new XYChart.Data<>("2", monthsTotals[1]));
+        series.getData().add(new XYChart.Data<>("3", monthsTotals[2]));
+        series.getData().add(new XYChart.Data<>("4", monthsTotals[3]));
+        series.getData().add(new XYChart.Data<>("5", monthsTotals[4]));
+        series.getData().add(new XYChart.Data<>("6", monthsTotals[5]));
+        series.getData().add(new XYChart.Data<>("7", monthsTotals[6]));
+        series.getData().add(new XYChart.Data<>("8", monthsTotals[7]));
+        series.getData().add(new XYChart.Data<>("9", monthsTotals[8]));
+        series.getData().add(new XYChart.Data<>("10", monthsTotals[9]));
+        series.getData().add(new XYChart.Data<>("11", monthsTotals[10]));
+        series.getData().add(new XYChart.Data<>("12", monthsTotals[11]));
+        chrt_balance.getData().add(series);
     }
 }
