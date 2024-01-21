@@ -4,6 +4,7 @@ import com.example.pr1_m03.Transaction;
 
 import javax.json.*;
 import java.io.*;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
@@ -29,8 +30,19 @@ public class TransactionList {
         OutputStream os = null;
         JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
         JsonWriter jsonWriter = null;
+        InputStream is = null;
+
 
         try {
+            if (Files.exists(path)) {
+                is = new FileInputStream(path.toFile());
+                JsonReader existingJsonReader = Json.createReader(is);
+                JsonArray existingJsonArray = existingJsonReader.readArray();
+
+                for (JsonValue jsonValue : existingJsonArray) {
+                    jsonArrayBuilder.add(jsonValue);
+                }
+            }
             for (Transaction transaction : allTransactions) {
                 jsonArrayBuilder.add(convertToJson(transaction));
             }
