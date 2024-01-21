@@ -63,6 +63,6 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s - %.2f USD: %s", date, category, amount, description);
+        return String.format("Date: [%s], Type: %s, %.2f USD, Description: %s", date, category, amount, description);
     }
 }
