@@ -56,6 +56,7 @@ public class TransactionController {
             // Puedes imprimir la transacción para verificar que se ha creado correctamente
             System.out.println(newTransaction);
 
+
             // Limpiar los campos después de agregar la transacción
             clearFields();
             changeToMainPageView();
