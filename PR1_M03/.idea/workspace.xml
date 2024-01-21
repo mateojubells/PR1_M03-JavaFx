@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b88c8902-7d61-42ca-980a-746ccd780ac9" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Transactions.json" beforeDir="false" afterPath="$PROJECT_DIR$/Transactions.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/TransactionList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/TransactionList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/pr1_m03/main-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/pr1_m03/main-page.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/MainPageController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/MainPageController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/main-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/main-page.fxml" afterDir="false" />
     </list>
@@ -106,7 +106,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705857431771</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Json functional">
+      <option name="closed" value="true" />
+      <created>1705857902076</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1705857902076</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="UnknownFeatures">
