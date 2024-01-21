@@ -13,6 +13,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 
 
@@ -26,10 +28,13 @@ public class TransactionController {
     @FXML
     private TextField descriptionField;
 
-    TransactionList transactionList = new TransactionList(); // Instancia de TransactionList
+
+     TransactionList transactionList = new TransactionList();
+    // Instancia de TransactionList
     public TransactionController() {
     }
     public TransactionController(TransactionList transactionList) {
+
         this.transactionList = transactionList;
     }
 
@@ -43,7 +48,7 @@ public class TransactionController {
             String description = descriptionField.getText();
 
             // Crear una nueva transacción
-            Transaction newTransaction = new Transaction(date, category, amount, description);
+            Transaction newTransaction = new Transaction( category, amount, description, date);
 
             // Agregar la transacción a la lista en TransactionList
             transactionList.addTransaction(newTransaction);
@@ -51,8 +56,11 @@ public class TransactionController {
             // Puedes imprimir la transacción para verificar que se ha creado correctamente
             System.out.println(newTransaction);
 
+
             // Limpiar los campos después de agregar la transacción
             clearFields();
+            changeToMainPageView();
+
         } catch (NumberFormatException e) {
             // Manejar el caso en el que la cantidad no sea un número válido
             System.out.println("Error: La cantidad debe ser un número válido.");
@@ -71,6 +79,11 @@ public class TransactionController {
             // Cargar la nueva vista
             FXMLLoader loader = new FXMLLoader(getClass().getResource("main-page.fxml"));
             Parent root = loader.load();
+
+            Stage transactionStage = (Stage) datePicker.getScene().getWindow();
+
+            // Cerrar la ventana de transacciones
+            transactionStage.close();
 
             // Configurar el controlador si es necesario (puedes obtenerlo del loader)
             // MainController mainController = loader.getController();

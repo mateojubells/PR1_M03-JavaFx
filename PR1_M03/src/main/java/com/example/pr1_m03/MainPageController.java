@@ -19,10 +19,18 @@ public class MainPageController {
     public Button btn_detalles;
     public LineChart chrt_balance;
 
+    private TransactionList transactionList;
+
+
     private Scene scene;
     private Parent root;
     private XYChart.Series series = new XYChart.Series();
     private TransactionList tList = new TransactionList();
+
+    public void setTransactionList(TransactionList transactionList) {
+        this.transactionList = transactionList;
+        // Puedes inicializar las gráficas y otras configuraciones aquí si es necesario.
+    }
 
     /**
      * Función que abre una ventana con la página de añadir gastos
