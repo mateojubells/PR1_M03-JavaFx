@@ -13,6 +13,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 
 
@@ -32,9 +34,8 @@ public class TransactionController {
     public TransactionController() {
     }
     public TransactionController(TransactionList transactionList) {
-        this.transactionList = transactionList;
-        transactionList.loadTransactionsFromJson(); // Cargar transacciones al iniciar
 
+        this.transactionList = transactionList;
     }
 
     @FXML
@@ -47,7 +48,7 @@ public class TransactionController {
             String description = descriptionField.getText();
 
             // Crear una nueva transacción
-            Transaction newTransaction = new Transaction(date, category, amount, description);
+            Transaction newTransaction = new Transaction( category, amount, description, date);
 
             // Agregar la transacción a la lista en TransactionList
             transactionList.addTransaction(newTransaction);

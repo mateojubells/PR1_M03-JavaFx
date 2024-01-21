@@ -5,19 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b88c8902-7d61-42ca-980a-746ccd780ac9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/Json/Transactions.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/MainPageApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/MainPageApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/MainPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/MainPageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/Json/Transactions.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/Transaction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/TransactionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/TransactionController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/TransactionList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/TransactionList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/MainPageApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/MainPageApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/MainPageController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/MainPageController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/Transaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/Transaction.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/TransactionController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/TransactionController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/TransactionList.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/TransactionList.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
     </list>
     <list id="d631be85-2ad1-4709-8e98-1fce7cdee732" name="Changes by polcr" comment="">
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/TransactionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/TransactionController.java" afterDir="false" />
@@ -48,13 +44,16 @@
   <component name="LineStatusTrackerManager">
     <file path="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/TransactionController.java">
       <ranges>
-        <range start1="28" end1="29" start2="28" end2="31" changelist="b88c8902-7d61-42ca-980a-746ccd780ac9" />
-        <range start1="33" end1="33" start2="35" end2="37" changelist="b88c8902-7d61-42ca-980a-746ccd780ac9" />
-        <range start1="52" end1="52" start2="56" end2="60" changelist="d631be85-2ad1-4709-8e98-1fce7cdee732" />
-        <range start1="55" end1="55" start2="63" end2="65" changelist="b88c8902-7d61-42ca-980a-746ccd780ac9" />
-        <range start1="73" end1="73" start2="83" end2="88" changelist="b88c8902-7d61-42ca-980a-746ccd780ac9" />
+        <range start1="15" end1="15" start2="15" end2="17" changelist="b88c8902-7d61-42ca-980a-746ccd780ac9" />
+        <range start1="34" end1="34" start2="36" end2="37" changelist="b88c8902-7d61-42ca-980a-746ccd780ac9" />
+        <range start1="35" end1="37" start2="38" end2="38" changelist="b88c8902-7d61-42ca-980a-746ccd780ac9" />
+        <range start1="49" end1="50" start2="50" end2="51" changelist="b88c8902-7d61-42ca-980a-746ccd780ac9" />
+        <range start1="56" end1="56" start2="57" end2="58" changelist="d631be85-2ad1-4709-8e98-1fce7cdee732" />
       </ranges>
     </file>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
@@ -73,7 +72,7 @@
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.keymap"
+    "settings.editor.selected.configurable": "configurable.group.editor"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -109,8 +108,21 @@
       <option name="project" value="LOCAL" />
       <updated>1705676801108</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Updates">
+      <option name="closed" value="true" />
+      <created>1705680989458</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1705680989458</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="executable:docker" />
+    <option featureType="dependencySupport" implementationName="java:org.openjfx:javafx-base" />
+    <option featureType="dependencySupport" implementationName="executable:kubectl" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
