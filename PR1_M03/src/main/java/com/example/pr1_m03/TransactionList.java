@@ -1,7 +1,5 @@
 package com.example.pr1_m03;
 
-import com.example.pr1_m03.Transaction;
-
 import javax.json.*;
 import java.io.*;
 import java.nio.file.Files;
@@ -64,6 +62,10 @@ public class TransactionList {
                 e.printStackTrace();
             }
         }
+    }
+
+    public List<Transaction> getAllTransactions() {
+        return allTransactions;
     }
 
     public void loadTransactionsFromJson(Path path) {

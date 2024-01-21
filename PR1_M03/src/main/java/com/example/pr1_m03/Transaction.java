@@ -1,6 +1,7 @@
 package com.example.pr1_m03;
 
 import java.time.LocalDate;
+import javafx.beans.property.*;
 
 public class Transaction {
 
@@ -58,6 +59,8 @@ public class Transaction {
     }
 
     // Método toString para representar el gasto como una cadena
+
+
     @Override
     public String toString() {
         return String.format("[%s] %s - %.2f USD: %s", date, category, amount, description);
