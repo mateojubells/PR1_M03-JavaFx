@@ -59,7 +59,6 @@ public class MainPageController {
 
     public void goDetalles(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("detalles.fxml"));
-        //FIXME: Agregar la vista correcta
         root = fxmlLoader.load();
         scene = new Scene(root);
 
@@ -74,7 +73,6 @@ public class MainPageController {
     @FXML
     private void initialize() {
         series.setName("Total mensual");
-        //TODO: Importar datos de JSON
         addTransactionData();
     }
 
@@ -85,7 +83,6 @@ public class MainPageController {
         series.getData().clear();
         int [] monthsTotals = new int[12];
         int yearTotal = 0;
-        // TODO: Acabar función para añadir los ingresos creados
         try (JsonReader reader = Json.createReader(new FileReader("Transactions.json"))) {
             JsonArray jsonArray = reader.readArray();
             for (JsonObject jsonObject : jsonArray.getValuesAs(JsonObject.class)) {
