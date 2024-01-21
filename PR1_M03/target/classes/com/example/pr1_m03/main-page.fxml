@@ -29,7 +29,7 @@
                <Font size="8.0" />
             </font></Label>
          <HBox prefHeight="19.0" prefWidth="100.0">
-            <Label text="Total: " textFill="RED" />
+            <Label text="Total: " />
             <Label fx:id="lbl_total" layoutX="10.0" layoutY="10.0" text="0€" textFill="RED" />
          </HBox>
       </VBox>

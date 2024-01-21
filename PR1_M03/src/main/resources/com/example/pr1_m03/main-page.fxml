@@ -18,7 +18,7 @@
    </HBox>
    <HBox layoutY="338.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="62.0" prefWidth="600.0">
       <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="63.0" prefWidth="382.0">
-         <Button fx:id="btn_gastos" layoutX="161.0" layoutY="29.0" mnemonicParsing="false" onAction="#goTransactions" text="Ir a Gastos" />
+         <Button fx:id="btn_gastos" layoutX="161.0" layoutY="29.0" mnemonicParsing="false" onAction="#goTransactions" text="Añadir transacción" />
          <Label layoutX="192.0" layoutY="33.0" opacity="0.0" text="Label" />
          <Button fx:id="btn_detalles" layoutX="220.0" layoutY="29.0" mnemonicParsing="false" onAction="#goDetalles" text="Ir a Detalles" />
       </HBox>
