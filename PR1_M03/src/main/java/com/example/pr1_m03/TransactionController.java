@@ -41,28 +41,21 @@ public class TransactionController {
     @FXML
     private void addTransaction(ActionEvent actionEvent) {
         try {
-            // Obtener valores del formulario
             LocalDate date = datePicker.getValue();
             String category = categoryComboBox.getValue();
             double amount = Double.parseDouble(amountField.getText());
             String description = descriptionField.getText();
 
-            // Crear una nueva transacción
             Transaction newTransaction = new Transaction( category, amount, description, date);
 
-            // Agregar la transacción a la lista en TransactionList
             transactionList.addTransaction(newTransaction);
 
-            // Puedes imprimir la transacción para verificar que se ha creado correctamente
             System.out.println(newTransaction);
 
-
-            // Limpiar los campos después de agregar la transacción
             clearFields();
             changeToMainPageView();
 
         } catch (NumberFormatException e) {
-            // Manejar el caso en el que la cantidad no sea un número válido
             System.out.println("Error: La cantidad debe ser un número válido.");
         }
     }
@@ -76,26 +69,17 @@ public class TransactionController {
     }
     private void changeToMainPageView() {
         try {
-            // Cargar la nueva vista
             FXMLLoader loader = new FXMLLoader(getClass().getResource("main-page.fxml"));
             Parent root = loader.load();
 
             Stage transactionStage = (Stage) datePicker.getScene().getWindow();
 
-            // Cerrar la ventana de transacciones
             transactionStage.close();
 
-            // Configurar el controlador si es necesario (puedes obtenerlo del loader)
-            // MainController mainController = loader.getController();
-            // mainController.initialize(); // Ejemplo si necesitas inicializar algo en el controlador
-
-            // Configurar la escena
             Scene scene = new Scene(root);
 
-            // Obtener el escenario actual (ventana)
             Stage stage = (Stage) datePicker.getScene().getWindow();
 
-            // Configurar el escenario con la nueva escena
             stage.setScene(scene);
 
         } catch (IOException e) {

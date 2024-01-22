@@ -5,7 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b88c8902-7d61-42ca-980a-746ccd780ac9" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/main-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/main-page.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/TransactionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/TransactionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/Transaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/Transaction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
     </list>
     <list id="d631be85-2ad1-4709-8e98-1fce7cdee732" name="Changes by polcr" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -47,26 +53,13 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "last_opened_file_path": "C:/Users/mateo/OneDrive - La Salle Catalunya/DAM -2/M03/PRACTICA1_M03/PR1_M03/PR1_M03",
+    "last_opened_file_path": "C:/Users/mateo/OneDrive - La Salle Catalunya/DAM -2/M03/PRACTICA1_M03/PR1_M03_Joan-Oscar-Pol-Mateo/PR1_M03",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "configurable.group.editor"
   }
 }]]></component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -132,7 +125,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705875097652</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Updates">
+      <option name="closed" value="true" />
+      <created>1705875676175</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1705875676175</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -165,9 +166,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Expense class" />
-    <MESSAGE value="Updates" />
     <MESSAGE value="Json functional" />
-    <option name="LAST_COMMIT_MESSAGE" value="Json functional" />
+    <MESSAGE value="Updates" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updates" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
