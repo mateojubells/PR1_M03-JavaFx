@@ -82,9 +82,10 @@ public class MainPageController {
      * Función que permite añadir información a la gráfica de ingresos
      */
     private void addTransactionData() {
-        series.getData().clear();
-        int [] monthsTotals = new int[12];
+        chrt_balance.getData().clear(); // Limpiar datos existentes en el gráfico
+        int[] monthsTotals = new int[12];
         int yearTotal = 0;
+
         try (JsonReader reader = Json.createReader(new FileReader("Transactions.json"))) {
             JsonArray jsonArray = reader.readArray();
             for (JsonObject jsonObject : jsonArray.getValuesAs(JsonObject.class)) {
@@ -96,46 +97,24 @@ public class MainPageController {
 
                 if (date.getYear() == currentDate.getYear()) {
                     Month month = date.getMonth();
-
-                    switch (month){
-                        case JANUARY -> monthsTotals[0] += amount;
-                        case FEBRUARY -> monthsTotals[1] += amount;
-                        case MARCH -> monthsTotals[2] += amount;
-                        case APRIL -> monthsTotals[3] += amount;
-                        case MAY -> monthsTotals[4] += amount;
-                        case JUNE -> monthsTotals[5] += amount;
-                        case JULY -> monthsTotals[6] += amount;
-                        case AUGUST -> monthsTotals[7] += amount;
-                        case SEPTEMBER -> monthsTotals[8] += amount;
-                        case OCTOBER -> monthsTotals[9] += amount;
-                        case NOVEMBER -> monthsTotals[10] += amount;
-                        case DECEMBER -> monthsTotals[11] += amount;
-                    }
+                    monthsTotals[month.getValue() - 1] += amount;
                 }
             }
-            
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        series.getData().add(new XYChart.Data<>("1", monthsTotals[0]));
-        series.getData().add(new XYChart.Data<>("2", monthsTotals[1]));
-        series.getData().add(new XYChart.Data<>("3", monthsTotals[2]));
-        series.getData().add(new XYChart.Data<>("4", monthsTotals[3]));
-        series.getData().add(new XYChart.Data<>("5", monthsTotals[4]));
-        series.getData().add(new XYChart.Data<>("6", monthsTotals[5]));
-        series.getData().add(new XYChart.Data<>("7", monthsTotals[6]));
-        series.getData().add(new XYChart.Data<>("8", monthsTotals[7]));
-        series.getData().add(new XYChart.Data<>("9", monthsTotals[8]));
-        series.getData().add(new XYChart.Data<>("10", monthsTotals[9]));
-        series.getData().add(new XYChart.Data<>("11", monthsTotals[10]));
-        series.getData().add(new XYChart.Data<>("12", monthsTotals[11]));
-        chrt_balance.getData().add(series);
+
+        XYChart.Series<String, Integer> series = new XYChart.Series<>();
+        series.setName("Year Total");
 
         for (int i = 0; i < monthsTotals.length; i++) {
+            series.getData().add(new XYChart.Data<>(String.valueOf(i + 1), monthsTotals[i]));
             yearTotal += monthsTotals[i];
         }
 
-        if (yearTotal <= 0){
+        chrt_balance.getData().add(series);
+
+        if (yearTotal <= 0) {
             lbl_total.setTextFill(Color.RED);
             lbl_total.setText(yearTotal + "€");
         } else {
