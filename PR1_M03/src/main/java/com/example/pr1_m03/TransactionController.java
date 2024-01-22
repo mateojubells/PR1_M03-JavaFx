@@ -10,13 +10,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.net.URL;
 import java.time.LocalDate;
-
 
 public class TransactionController {
     @FXML
@@ -28,13 +28,13 @@ public class TransactionController {
     @FXML
     private TextField descriptionField;
 
+    private TransactionList transactionList = new TransactionList();
 
-     TransactionList transactionList = new TransactionList();
     // Instancia de TransactionList
     public TransactionController() {
     }
-    public TransactionController(TransactionList transactionList) {
 
+    public TransactionController(TransactionList transactionList) {
         this.transactionList = transactionList;
     }
 
@@ -48,7 +48,7 @@ public class TransactionController {
             String description = descriptionField.getText();
 
             // Crear una nueva transacción
-            Transaction newTransaction = new Transaction( category, amount, description, date);
+            Transaction newTransaction = new Transaction(category, amount, description, date);
 
             // Agregar la transacción a la lista en TransactionList
             transactionList.addTransaction(newTransaction);
@@ -56,6 +56,8 @@ public class TransactionController {
             // Puedes imprimir la transacción para verificar que se ha creado correctamente
             System.out.println(newTransaction);
 
+            // Reproducir el sonido
+            playSound("Audios/sonidoMOnedas.mp3");
 
             // Limpiar los campos después de agregar la transacción
             clearFields();
@@ -67,6 +69,27 @@ public class TransactionController {
         }
     }
 
+    // Método para reproducir el sonido
+    private void playSound(String soundFile) {
+        try {
+            // Cargar la URL del recurso de audio
+            URL resource = getClass().getClassLoader().getResource(soundFile);
+
+            if (resource != null) {
+                // Crear el objeto Media usando la URL cargada
+                Media sound = new Media(resource.toString());
+                MediaPlayer mediaPlayer = new MediaPlayer(sound);
+
+                // Reproducir el sonido
+                mediaPlayer.play();
+            } else {
+                System.out.println("Error: No se pudo cargar el recurso de audio.");
+            }
+        } catch (Exception e) {
+            System.out.println("Error al reproducir el sonido: " + e.getMessage());
+        }
+    }
+
     private void clearFields() {
         // Limpiar los campos del formulario después de agregar la transacción
         datePicker.setValue(null);
@@ -74,6 +97,7 @@ public class TransactionController {
         amountField.clear();
         descriptionField.clear();
     }
+
     private void changeToMainPageView() {
         try {
             // Cargar la nueva vista
@@ -103,4 +127,3 @@ public class TransactionController {
         }
     }
 }
-

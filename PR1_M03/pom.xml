@@ -45,6 +45,12 @@
             <scope>compile</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>17.0.2</version>
+        </dependency>
+
         <!-- Dependencia para la implementación de referencia de javax.json -->
         <dependency>
             <groupId>org.glassfish</groupId>
