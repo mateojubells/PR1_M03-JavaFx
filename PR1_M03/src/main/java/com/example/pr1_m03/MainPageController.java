@@ -26,6 +26,8 @@ public class MainPageController {
     public Label lbl_total;
     public Button btn_detalles;
     public LineChart chrt_balance;
+    public Button btn_year_view;
+    public Button btn_view_month;
 
     private Scene scene;
     private Parent root;
@@ -140,5 +142,11 @@ public class MainPageController {
             lbl_total.setTextFill(Color.GREEN);
             lbl_total.setText(yearTotal + "€");
         }
+    }
+
+    public void viewYear(ActionEvent actionEvent) {
+    }
+
+    public void viewMonth(ActionEvent actionEvent) {
     }
 }
