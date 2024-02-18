@@ -5,13 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b88c8902-7d61-42ca-980a-746ccd780ac9" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/PR1_M03_Joan-Oscar-Pol-Mateo.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Categories.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/Category.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/CategoryController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/CategoryList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/pr1_m03/newCategory.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/HelloApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/MainPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/MainPageController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/TransactionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/TransactionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/Transaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/Transaction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/pr1_m03/add-transaction.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/pr1_m03/add-transaction.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/HelloApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/HelloApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/MainPageController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/MainPageController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/TransactionController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/TransactionController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/add-transaction.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/add-transaction.fxml" afterDir="false" />
     </list>
     <list id="d631be85-2ad1-4709-8e98-1fce7cdee732" name="Changes by polcr" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,6 +31,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
@@ -52,6 +62,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "last_opened_file_path": "C:/Users/mateo/OneDrive - La Salle Catalunya/DAM -2/M03/PRACTICA1_M03/PR1_M03_Joan-Oscar-Pol-Mateo/PR1_M03",
     "project.structure.last.edited": "Modules",
@@ -60,6 +71,11 @@
     "settings.editor.selected.configurable": "configurable.group.editor"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.example.pr1_m03" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -133,7 +149,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705875676175</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Updates">
+      <option name="closed" value="true" />
+      <created>1705934142780</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1705934142780</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="UnknownFeatures">

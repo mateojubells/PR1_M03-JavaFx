@@ -123,9 +123,5 @@ public class MainPageController {
         }
     }
 
-    public void viewYear(ActionEvent actionEvent) {
-    }
 
-    public void viewMonth(ActionEvent actionEvent) {
-    }
 }

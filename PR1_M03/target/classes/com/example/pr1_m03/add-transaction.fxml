@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.collections.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -12,64 +11,65 @@
     </padding>
     <children>
         <Label text="Añadir Transaccion" />
-        <HBox alignment="BASELINE_CENTER" prefHeight="6.0" prefWidth="499.0" spacing="10.0">
-         <VBox prefHeight="19.0" prefWidth="100.0">
-            <children>
-                  <Label text="Fecha:" />
-            </children>
-         </VBox>
-         <VBox layoutX="324.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
-            <children>
-                  <DatePicker fx:id="datePicker" />
-            </children>
-         </VBox>
+        <HBox alignment="BASELINE_CENTER" spacing="10.0">
+            <VBox prefHeight="19.0" prefWidth="100.0">
+                <children>
+                    <Label text="Fecha:" />
+                </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+                <children>
+                    <DatePicker fx:id="datePicker" />
+                </children>
+            </VBox>
         </HBox>
-        <HBox alignment="BASELINE_CENTER" prefHeight="0.0" prefWidth="499.0" spacing="10.0">
-         <VBox prefHeight="200.0" prefWidth="100.0">
-            <children>
-                  <Label text="Categoría:" />
-            </children>
-         </VBox>
-         <VBox layoutX="292.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
-            <children>
-                  <ComboBox fx:id="categoryComboBox" prefHeight="26.0" prefWidth="102.0">
-                      <items>
-                          <FXCollections fx:factory="observableArrayList">
-                              <String fx:value="Trabajo" />
-                              <String fx:value="Bizum" />
-                              <String fx:value="Ventas" />
-                              <String fx:value="Regalos" />
-                              <String fx:value="Otros" />
-                          </FXCollections>
-                      </items>
-                  </ComboBox>
-            </children>
-         </VBox>
+        <HBox alignment="BASELINE_CENTER" spacing="10.0">
+            <VBox prefHeight="200.0" prefWidth="100.0">
+                <children>
+                    <Label text="Categoría:" />
+                </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+                <children>
+                    <ComboBox fx:id="categoryComboBox" prefHeight="26.0" prefWidth="102.0">
+                        <!-- Aquí se agregarán las categorías existentes -->
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                </children>
+            </VBox>
+         <Button mnemonicParsing="false" onAction="#openNewCategory" prefHeight="26.0" prefWidth="26.0" text="+" />
         </HBox>
-        <HBox alignment="BASELINE_CENTER" prefHeight="16.0" prefWidth="499.0" spacing="10.0">
-         <VBox prefHeight="200.0" prefWidth="100.0">
-            <children>
-                  <Label text="Cantidad:" />
-            </children>
-         </VBox>
-         <VBox layoutX="320.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
-            <children>
-                  <TextField fx:id="amountField" />
-            </children>
-         </VBox>
+        <HBox alignment="BASELINE_CENTER" spacing="10.0">
+            <VBox prefHeight="200.0" prefWidth="100.0">
+                <children>
+                    <Label text="Cantidad:" />
+                </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+                <children>
+                    <TextField fx:id="amountField" />
+                </children>
+            </VBox>
         </HBox>
-        <HBox alignment="BASELINE_CENTER" prefHeight="10.0" prefWidth="499.0" spacing="10.0">
-         <VBox prefHeight="200.0" prefWidth="100.0">
-            <children>
-                  <Label text="Descripción:" />
-            </children>
-         </VBox>
-         <VBox layoutX="328.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
-            <children>
-                  <TextField fx:id="descriptionField" />
-            </children>
-         </VBox>
+        <HBox alignment="BASELINE_CENTER" spacing="10.0">
+            <VBox prefHeight="200.0" prefWidth="100.0">
+                <children>
+                    <Label text="Descripción:" />
+                </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+                <children>
+                    <TextField fx:id="descriptionField" />
+                </children>
+            </VBox>
         </HBox>
-        <Button onAction="#addTransaction" text="Añadir Gasto" />
+        <HBox alignment="CENTER" spacing="10.0">
+            <Button onAction="#changeToMainPageView" text="Volver" />
+            <Button onAction="#addTransaction" text="Añadir Gasto" />
+        </HBox>
     </children>
 </VBox>
