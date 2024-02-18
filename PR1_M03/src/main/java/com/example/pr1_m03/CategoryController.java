@@ -20,10 +20,7 @@ import java.util.List;
 
 
 public class CategoryController {
-    private TransactionController transactionController;
-    public void setTransactionController(TransactionController transactionController) {
-        this.transactionController = transactionController;
-    }
+
     @FXML
     private TextField categoryField;
 
@@ -48,9 +45,7 @@ public class CategoryController {
         categoryStage.close();
 
         // Reiniciar la vista de agregar transacción
-        if (transactionController != null) {
-            transactionController.resetView();
-        }
+
     }
 
 
