@@ -26,7 +26,7 @@
         <HBox alignment="BASELINE_CENTER" spacing="10.0">
             <VBox prefHeight="200.0" prefWidth="100.0">
                 <children>
-                    <Label text="Categoría:" />
+                    <Label text="    Categoría:" />
                 </children>
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0">

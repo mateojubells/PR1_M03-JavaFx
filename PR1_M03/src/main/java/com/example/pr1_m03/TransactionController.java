@@ -53,9 +53,23 @@ public class TransactionController {
         Alert alert = null;
         try {
             LocalDate date = datePicker.getValue();
+            if (date == null) {
+               date = LocalDate.now();
+            }
+
             String category = categoryComboBox.getValue();
             double amount = Double.parseDouble(amountField.getText());
             String description = descriptionField.getText();
+
+            // Verificar si la categoría es nula y asignar una cadena vacía en su lugar
+            if (category == null) {
+                category = "";
+            }
+
+            // Verificar si la descripción es nula y asignar una cadena vacía en su lugar
+            if (description == null) {
+                description = "";
+            }
 
             Transaction newTransaction = new Transaction(category, amount, description, date);
 
@@ -69,6 +83,7 @@ public class TransactionController {
             alert.showAndWait();
         }
     }
+
 
 
 
@@ -106,7 +121,6 @@ public class TransactionController {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(root));
             stage.showAndWait();
-
         } catch (IOException e) {
             e.printStackTrace();
         }

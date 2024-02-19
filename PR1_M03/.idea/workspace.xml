@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b88c8902-7d61-42ca-980a-746ccd780ac9" name="Changes" comment="" />
+    <list default="true" id="b88c8902-7d61-42ca-980a-746ccd780ac9" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Categories.json" beforeDir="false" afterPath="$PROJECT_DIR$/Categories.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Transactions.json" beforeDir="false" afterPath="$PROJECT_DIR$/Transactions.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/TransactionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/TransactionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/pr1_m03/add-transaction.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/pr1_m03/add-transaction.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/TransactionController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/TransactionController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/add-transaction.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/add-transaction.fxml" afterDir="false" />
+    </list>
     <list id="d631be85-2ad1-4709-8e98-1fce7cdee732" name="Changes by polcr" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
