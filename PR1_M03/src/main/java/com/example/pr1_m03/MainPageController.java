@@ -56,7 +56,6 @@ public class MainPageController {
             addTransactionData();
         });
         newStage.show();
-        // Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     }
 
     public void goDetalles(ActionEvent actionEvent) throws IOException {
@@ -81,7 +80,7 @@ public class MainPageController {
     /**
      * Función que permite añadir información a la gráfica de ingresos
      */
-    private void addTransactionData() {
+    void addTransactionData() {
         chrt_balance.getData().clear(); // Limpiar datos existentes en el gráfico
         int[] monthsTotals = new int[12];
         int yearTotal = 0;

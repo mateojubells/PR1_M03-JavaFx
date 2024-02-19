@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 public class CategoryController {
@@ -25,6 +26,10 @@ public class CategoryController {
     private TextField categoryField;
 
     CategoryList categoryList = new CategoryList();
+    private Scene scene;
+    private Parent root;
+    TransactionController transactionController;
+    MainPageController mainController;
 
     @FXML
     private void newCategory(ActionEvent actionEvent) {
@@ -40,11 +45,23 @@ public class CategoryController {
 
     @FXML
     private void closeView(){
-        categoryField.clear();
-        Stage categoryStage = (Stage) categoryField.getScene().getWindow();
-        categoryStage.close();
+        try{
+            categoryField.clear();
+            Stage categoryStage = (Stage) categoryField.getScene().getWindow();
+            categoryStage.close();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("add-transaction.fxml"));
+            root = fxmlLoader.load();
+            scene = new Scene(root);
 
-        // Reiniciar la vista de agregar transacción
+            Stage newStage = new Stage();
+            newStage.setScene(scene);
+            newStage.setTitle("Agregar Gasto");
+
+            newStage.show();
+        }catch (IOException r) {
+            System.out.printf("Error");
+        }
+
 
     }
 

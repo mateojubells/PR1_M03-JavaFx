@@ -99,14 +99,19 @@ public class TransactionController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("newCategory.fxml"));
             Parent root = loader.load();
+            Stage transactionStage = (Stage) datePicker.getScene().getWindow();
+
+            transactionStage.close();
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(root));
             stage.showAndWait();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     @FXML
     private void changeToMainPageView() {
