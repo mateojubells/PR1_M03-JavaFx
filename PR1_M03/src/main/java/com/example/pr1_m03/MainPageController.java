@@ -26,12 +26,14 @@ public class MainPageController {
     public Label lbl_total;
     public Button btn_detalles;
     public LineChart chrt_balance;
+    public Button btn_year_view;
+    public Button btn_view_month;
 
     private Scene scene;
     private Parent root;
-    private final XYChart.Series total = new XYChart.Series<>();
-    private final XYChart.Series earnings = new XYChart.Series<>();
-    private final XYChart.Series spendings = new XYChart.Series<>();
+    private XYChart.Series total = new XYChart.Series();
+    private XYChart.Series earnings = new XYChart.Series();
+    private XYChart.Series spendings = new  XYChart.Series<>();
 
     public void setTransactionList(TransactionList transactionList) {
         // Puedes inicializar las gráficas y otras configuraciones aquí si es necesario.
@@ -52,10 +54,7 @@ public class MainPageController {
         newStage.setScene(scene);
         newStage.setTitle("Agregar Gasto");
 
-        newStage.setOnHidden(event -> {
-            total.getData().clear();
-            earnings.getData().clear();
-            spendings.getData().clear();
+        newStage.setOnHidden(event->{
             addTransactionData();
         });
         newStage.show();
@@ -77,10 +76,10 @@ public class MainPageController {
 
     @FXML
     private void initialize() {
+        // TODO: Cambiar color de las lineas
         total.setName("Total mensual");
         earnings.setName("Ingresos mensuales");
         spendings.setName("Gastos mensuales");
-        
         addTransactionData();
     }
 
@@ -89,9 +88,9 @@ public class MainPageController {
      */
     private void addTransactionData() {
         total.getData().clear();
-        int[] monthsTotals = new int[12];
-        int[] monthsEarnings = new int[12];
-        int[] monthsSpendings = new int[12];
+        int [] monthsTotals = new int[12];
+        int [] monthsEarnings = new int[12];
+        int [] monthsSpendings = new int[12];
         int yearTotal = 0;
         try (JsonReader reader = Json.createReader(new FileReader("Transactions.json"))) {
             JsonArray jsonArray = reader.readArray();
@@ -105,108 +104,108 @@ public class MainPageController {
                 if (date.getYear() == currentDate.getYear()) {
                     Month month = date.getMonth();
 
-                    switch (month) {
+                    switch (month){
                         case JANUARY -> {
                             monthsTotals[0] += amount;
-                            if (amount > 0) {
+                            if (amount > 0){
                                 monthsEarnings[0] += amount;
-                            } else {
+                            }else {
                                 monthsSpendings[0] += amount;
                             }
                         }
                         case FEBRUARY -> {
                             monthsTotals[1] += amount;
-                            if (amount > 0) {
+                            if (amount > 0){
                                 monthsEarnings[1] += amount;
-                            } else {
+                            }else {
                                 monthsSpendings[1] += amount;
                             }
                         }
                         case MARCH -> {
                             monthsTotals[2] += amount;
-                            if (amount > 0) {
+                            if (amount > 0){
                                 monthsEarnings[0] += amount;
-                            } else {
+                            }else {
                                 monthsSpendings[0] += amount;
                             }
                         }
                         case APRIL -> {
                             monthsTotals[3] += amount;
-                            if (amount > 0) {
+                            if (amount > 0){
                                 monthsEarnings[0] += amount;
-                            } else {
+                            }else {
                                 monthsSpendings[0] += amount;
                             }
                         }
                         case MAY -> {
                             monthsTotals[4] += amount;
-                            if (amount > 0) {
+                            if (amount > 0){
                                 monthsEarnings[0] += amount;
-                            } else {
+                            }else {
                                 monthsSpendings[0] += amount;
                             }
                         }
                         case JUNE -> {
                             monthsTotals[5] += amount;
-                            if (amount > 0) {
+                            if (amount > 0){
                                 monthsEarnings[0] += amount;
-                            } else {
+                            }else {
                                 monthsSpendings[0] += amount;
                             }
                         }
                         case JULY -> {
                             monthsTotals[6] += amount;
-                            if (amount > 0) {
+                            if (amount > 0){
                                 monthsEarnings[0] += amount;
-                            } else {
+                            }else {
                                 monthsSpendings[0] += amount;
                             }
                         }
                         case AUGUST -> {
                             monthsTotals[7] += amount;
-                            if (amount > 0) {
+                            if (amount > 0){
                                 monthsEarnings[0] += amount;
-                            } else {
+                            }else {
                                 monthsSpendings[0] += amount;
                             }
                         }
                         case SEPTEMBER -> {
                             monthsTotals[8] += amount;
-                            if (amount > 0) {
+                            if (amount > 0){
                                 monthsEarnings[0] += amount;
-                            } else {
+                            }else {
                                 monthsSpendings[0] += amount;
                             }
                         }
                         case OCTOBER -> {
                             monthsTotals[9] += amount;
-                            if (amount > 0) {
+                            if (amount > 0){
                                 monthsEarnings[0] += amount;
-                            } else {
+                            }else {
                                 monthsSpendings[0] += amount;
                             }
                         }
                         case NOVEMBER -> {
                             monthsTotals[10] += amount;
-                            if (amount > 0) {
+                            if (amount > 0){
                                 monthsEarnings[0] += amount;
-                            } else {
+                            }else {
                                 monthsSpendings[0] += amount;
                             }
                         }
                         case DECEMBER -> {
                             monthsTotals[11] += amount;
-                            if (amount > 0) {
+                            if (amount > 0){
                                 monthsEarnings[0] += amount;
-                            } else {
+                            }else {
                                 monthsSpendings[0] += amount;
                             }
                         }
                     }
                 }
             }
-
-        } catch (IOException e) {
+            
+        } catch (IOException e){
             e.printStackTrace();
         }
         // Total year
@@ -254,16 +253,22 @@ public class MainPageController {
         spendings.getData().add(new XYChart.Data<>("12", monthsSpendings[11]));
         chrt_balance.getData().add(spendings);
 
-        for (int monthsTotal : monthsTotals) {
-            yearTotal += monthsTotal;
+        for (int i = 0; i < monthsTotals.length; i++) {
+            yearTotal += monthsTotals[i];
         }
 
-        if (yearTotal <= 0) {
+        if (yearTotal <= 0){
             lbl_total.setTextFill(Color.RED);
             lbl_total.setText(yearTotal + "€");
         } else {
             lbl_total.setTextFill(Color.GREEN);
             lbl_total.setText(yearTotal + "€");
         }
+    }
+
+    public void viewYear(ActionEvent actionEvent) {
+    }
+
+    public void viewMonth(ActionEvent actionEvent) {
     }
 }
