@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.nio.file.Paths;
@@ -18,8 +19,17 @@ public class DetallesController implements Initializable {
     @FXML
     private TableView<Transaction> detallesTable;
 
+
     @FXML
     private TableColumn<Transaction, String> transactionColumn;
+    @FXML
+    private TableColumn<Transaction, String> transactionColumn1;
+    @FXML
+    private TableColumn<Transaction, String> transactionColumn2;
+
+    @FXML
+    private TableColumn<Transaction, String> transactionColumn3;
+
 
     // Transaction list to store loaded transactions
     private final ObservableList<Transaction> transactions = FXCollections.observableArrayList();
@@ -27,10 +37,15 @@ public class DetallesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Set up columns
-        transactionColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().toString()));
+        transactionColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
+        transactionColumn1.setCellValueFactory(new PropertyValueFactory<>("Amount"));
+        transactionColumn2.setCellValueFactory(new PropertyValueFactory<>("Category"));
+        transactionColumn3.setCellValueFactory(new PropertyValueFactory<>("Description"));
 
         // Load transactions from JSON
         loadTransactionsFromJson();
+
+
 
         // Populate table with transactions
         detallesTable.setItems(transactions);
