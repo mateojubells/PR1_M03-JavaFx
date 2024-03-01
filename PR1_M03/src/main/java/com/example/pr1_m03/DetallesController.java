@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
@@ -21,6 +22,7 @@ import java.util.ResourceBundle;
 
 public class DetallesController implements Initializable {
 
+    public Button pieButton;
     @FXML
     private TableView<Transaction> detallesTable;
 
@@ -63,4 +65,18 @@ public class DetallesController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    @FXML
+    private void handlePieChartButtonAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("pie-chart.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
