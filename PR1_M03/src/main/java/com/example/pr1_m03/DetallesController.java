@@ -1,6 +1,5 @@
 package com.example.pr1_m03;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -84,8 +83,7 @@ public class DetallesController implements Initializable {
     @FXML
     private void handlePieChartButtonAction(ActionEvent event) {
         try {
-            Stage stage = (Stage) detallesTable.getScene().getWindow();
-            stage.close();
+            Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("pie-chart.fxml"));
             Parent root = loader.load();
             stage.setScene(new Scene(root));
