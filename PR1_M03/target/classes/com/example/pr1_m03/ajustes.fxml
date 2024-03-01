@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pr1_m03.AjustesController">
+   <children>
+      <Button layoutX="131.0" layoutY="32.0" mnemonicParsing="false" onAction="#reiniciarTransacciones" text="Reiniciar Transacciones" />
+      <Button layoutX="140.0" layoutY="74.0" mnemonicParsing="false" onAction="#reiniciarCategorias" text="Reiniciar Categorias" />
+      <Button layoutX="163.0" layoutY="119.0" mnemonicParsing="false" onAction="#cerrarAplicacion" text="Cerrar App" />
+   </children>
+</AnchorPane>

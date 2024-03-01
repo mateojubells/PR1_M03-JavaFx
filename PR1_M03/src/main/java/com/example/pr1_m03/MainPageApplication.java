@@ -15,15 +15,16 @@ public class MainPageApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-page.fxml"));
         Parent root = fxmlLoader.load();
 
-        // Obtener el controlador de la vista principal y pasar la instancia de TransactionList
         MainPageController mainPageController = fxmlLoader.getController();
         mainPageController.setTransactionList(transactionList);
 
         Scene scene = new Scene(root, 600, 400);
         stage.setTitle("Página principal");
         stage.setScene(scene);
+        stage.setUserData(mainPageController); 
         stage.show();
     }
+
 
     public static void main(String[] args) {
         launch();

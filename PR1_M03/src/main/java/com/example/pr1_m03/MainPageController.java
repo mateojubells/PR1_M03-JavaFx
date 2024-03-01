@@ -27,6 +27,10 @@ public class MainPageController {
     public Button btn_detalles;
     public LineChart chrt_balance;
 
+    private Stage primaryStage;
+
+
+
     private Scene scene;
     private Parent root;
     private XYChart.Series total = new XYChart.Series<>();
@@ -36,6 +40,12 @@ public class MainPageController {
     public void setTransactionList(TransactionList transactionList) {
         // Puedes inicializar las gráficas y otras configuraciones aquí si es necesario.
     }
+    public void setPrimaryStage(Stage primaryStage) {
+
+
+        this.primaryStage = primaryStage;
+    }
+
 
     /**
      * Función que abre una ventana con la página de añadir gastos
@@ -60,7 +70,6 @@ public class MainPageController {
             addTransactionData();
         });
         newStage.show();
-        // Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     }
 
     public void goDetalles(ActionEvent actionEvent) throws IOException {
@@ -77,7 +86,7 @@ public class MainPageController {
     }
 
     @FXML
-    private void initialize() {
+    void initialize() {
         total.setName("Total mensual");
         earnings.setName("Ingresos mensuales");
         spendings.setName("Gastos mensuales");
@@ -89,9 +98,9 @@ public class MainPageController {
      */
     private void addTransactionData() {
         total.getData().clear();
-        int [] monthsTotals = new int[12];
-        int [] monthsEarnings = new int[12];
-        int [] monthsSpendings = new int[12];
+        int[] monthsTotals = new int[12];
+        int[] monthsEarnings = new int[12];
+        int[] monthsSpendings = new int[12];
         int yearTotal = 0;
         try (JsonReader reader = Json.createReader(new FileReader("Transactions.json"))) {
             JsonArray jsonArray = reader.readArray();
@@ -105,160 +114,133 @@ public class MainPageController {
                 if (date.getYear() == currentDate.getYear()) {
                     Month month = date.getMonth();
 
-                    switch (month){
-                        case JANUARY -> {
+                    switch (month) {
+                        case JANUARY:
                             monthsTotals[0] += amount;
-                            if (amount > 0){
+                            if (amount > 0) {
                                 monthsEarnings[0] += amount;
-                            }else {
+                            } else {
                                 monthsSpendings[0] += amount;
                             }
-                        }
-                        case FEBRUARY -> {
+                            break;
+                        case FEBRUARY:
                             monthsTotals[1] += amount;
-                            if (amount > 0){
+                            if (amount > 0) {
                                 monthsEarnings[1] += amount;
-                            }else {
+                            } else {
                                 monthsSpendings[1] += amount;
                             }
-                        }
-                        case MARCH -> {
+                            break;
+                        case MARCH:
                             monthsTotals[2] += amount;
-                            if (amount > 0){
-                                monthsEarnings[0] += amount;
-                            }else {
-                                monthsSpendings[0] += amount;
+                            if (amount > 0) {
+                                monthsEarnings[2] += amount;
+                            } else {
+                                monthsSpendings[2] += amount;
                             }
-                        }
-                        case APRIL -> {
+                            break;
+                        case APRIL:
                             monthsTotals[3] += amount;
-                            if (amount > 0){
-                                monthsEarnings[0] += amount;
-                            }else {
-                                monthsSpendings[0] += amount;
+                            if (amount > 0) {
+                                monthsEarnings[3] += amount;
+                            } else {
+                                monthsSpendings[3] += amount;
                             }
-                        }
-                        case MAY -> {
+                            break;
+                        case MAY:
                             monthsTotals[4] += amount;
-                            if (amount > 0){
-                                monthsEarnings[0] += amount;
-                            }else {
-                                monthsSpendings[0] += amount;
+                            if (amount > 0) {
+                                monthsEarnings[4] += amount;
+                            } else {
+                                monthsSpendings[4] += amount;
                             }
-                        }
-                        case JUNE -> {
+                            break;
+                        case JUNE:
                             monthsTotals[5] += amount;
-                            if (amount > 0){
-                                monthsEarnings[0] += amount;
-                            }else {
-                                monthsSpendings[0] += amount;
+                            if (amount > 0) {
+                                monthsEarnings[5] += amount;
+                            } else {
+                                monthsSpendings[5] += amount;
                             }
-                        }
-                        case JULY -> {
+                            break;
+                        case JULY:
                             monthsTotals[6] += amount;
-                            if (amount > 0){
-                                monthsEarnings[0] += amount;
-                            }else {
-                                monthsSpendings[0] += amount;
+                            if (amount > 0) {
+                                monthsEarnings[6] += amount;
+                            } else {
+                                monthsSpendings[6] += amount;
                             }
-                        }
-                        case AUGUST -> {
+                            break;
+                        case AUGUST:
                             monthsTotals[7] += amount;
-                            if (amount > 0){
-                                monthsEarnings[0] += amount;
-                            }else {
-                                monthsSpendings[0] += amount;
+                            if (amount > 0) {
+                                monthsEarnings[7] += amount;
+                            } else {
+                                monthsSpendings[7] += amount;
                             }
-                        }
-                        case SEPTEMBER -> {
+                            break;
+                        case SEPTEMBER:
                             monthsTotals[8] += amount;
-                            if (amount > 0){
-                                monthsEarnings[0] += amount;
-                            }else {
-                                monthsSpendings[0] += amount;
+                            if (amount > 0) {
+                                monthsEarnings[8] += amount;
+                            } else {
+                                monthsSpendings[8] += amount;
                             }
-                        }
-                        case OCTOBER -> {
+                            break;
+                        case OCTOBER:
                             monthsTotals[9] += amount;
-                            if (amount > 0){
-                                monthsEarnings[0] += amount;
-                            }else {
-                                monthsSpendings[0] += amount;
+                            if (amount > 0) {
+                                monthsEarnings[9] += amount;
+                            } else {
+                                monthsSpendings[9] += amount;
                             }
-                        }
-                        case NOVEMBER -> {
+                            break;
+                        case NOVEMBER:
                             monthsTotals[10] += amount;
-                            if (amount > 0){
-                                monthsEarnings[0] += amount;
-                            }else {
-                                monthsSpendings[0] += amount;
+                            if (amount > 0) {
+                                monthsEarnings[10] += amount;
+                            } else {
+                                monthsSpendings[10] += amount;
                             }
-                        }
-                        case DECEMBER -> {
+                            break;
+                        case DECEMBER:
                             monthsTotals[11] += amount;
-                            if (amount > 0){
-                                monthsEarnings[0] += amount;
-                            }else {
-                                monthsSpendings[0] += amount;
+                            if (amount > 0) {
+                                monthsEarnings[11] += amount;
+                            } else {
+                                monthsSpendings[11] += amount;
                             }
-                        }
+                            break;
                     }
                 }
             }
 
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         // Total year
-        total.getData().add(new XYChart.Data<>("1", monthsTotals[0]));
-        total.getData().add(new XYChart.Data<>("2", monthsTotals[1]));
-        total.getData().add(new XYChart.Data<>("3", monthsTotals[2]));
-        total.getData().add(new XYChart.Data<>("4", monthsTotals[3]));
-        total.getData().add(new XYChart.Data<>("5", monthsTotals[4]));
-        total.getData().add(new XYChart.Data<>("6", monthsTotals[5]));
-        total.getData().add(new XYChart.Data<>("7", monthsTotals[6]));
-        total.getData().add(new XYChart.Data<>("8", monthsTotals[7]));
-        total.getData().add(new XYChart.Data<>("9", monthsTotals[8]));
-        total.getData().add(new XYChart.Data<>("10", monthsTotals[9]));
-        total.getData().add(new XYChart.Data<>("11", monthsTotals[10]));
-        total.getData().add(new XYChart.Data<>("12", monthsTotals[11]));
+        for (int i = 0; i < 12; i++) {
+            total.getData().add(new XYChart.Data<>(String.valueOf(i + 1), monthsTotals[i]));
+        }
         chrt_balance.getData().add(total);
 
         // Total earnings
-        earnings.getData().add(new XYChart.Data<>("1", monthsEarnings[0]));
-        earnings.getData().add(new XYChart.Data<>("2", monthsEarnings[1]));
-        earnings.getData().add(new XYChart.Data<>("3", monthsEarnings[2]));
-        earnings.getData().add(new XYChart.Data<>("4", monthsEarnings[3]));
-        earnings.getData().add(new XYChart.Data<>("5", monthsEarnings[4]));
-        earnings.getData().add(new XYChart.Data<>("6", monthsEarnings[5]));
-        earnings.getData().add(new XYChart.Data<>("7", monthsEarnings[6]));
-        earnings.getData().add(new XYChart.Data<>("8", monthsEarnings[7]));
-        earnings.getData().add(new XYChart.Data<>("9", monthsEarnings[8]));
-        earnings.getData().add(new XYChart.Data<>("10", monthsEarnings[9]));
-        earnings.getData().add(new XYChart.Data<>("11", monthsEarnings[10]));
-        earnings.getData().add(new XYChart.Data<>("12", monthsEarnings[11]));
+        for (int i = 0; i < 12; i++) {
+            earnings.getData().add(new XYChart.Data<>(String.valueOf(i + 1), monthsEarnings[i]));
+        }
         chrt_balance.getData().add(earnings);
 
         // Total spendings
-        spendings.getData().add(new XYChart.Data<>("1", monthsSpendings[0]));
-        spendings.getData().add(new XYChart.Data<>("2", monthsSpendings[1]));
-        spendings.getData().add(new XYChart.Data<>("3", monthsSpendings[2]));
-        spendings.getData().add(new XYChart.Data<>("4", monthsSpendings[3]));
-        spendings.getData().add(new XYChart.Data<>("5", monthsSpendings[4]));
-        spendings.getData().add(new XYChart.Data<>("6", monthsSpendings[5]));
-        spendings.getData().add(new XYChart.Data<>("7", monthsSpendings[6]));
-        spendings.getData().add(new XYChart.Data<>("8", monthsSpendings[7]));
-        spendings.getData().add(new XYChart.Data<>("9", monthsSpendings[8]));
-        spendings.getData().add(new XYChart.Data<>("10", monthsSpendings[9]));
-        spendings.getData().add(new XYChart.Data<>("11", monthsSpendings[10]));
-        spendings.getData().add(new XYChart.Data<>("12", monthsSpendings[11]));
+        for (int i = 0; i < 12; i++) {
+            spendings.getData().add(new XYChart.Data<>(String.valueOf(i + 1), monthsSpendings[i]));
+        }
         chrt_balance.getData().add(spendings);
 
         for (int monthsTotal : monthsTotals) {
             yearTotal += monthsTotal;
         }
 
-        if (yearTotal <= 0){
+        if (yearTotal <= 0) {
             lbl_total.setTextFill(Color.RED);
             lbl_total.setText(yearTotal + "€");
         } else {
@@ -266,4 +248,36 @@ public class MainPageController {
             lbl_total.setText(yearTotal + "€");
         }
     }
+    @FXML
+    void reiniciar() throws IOException {
+        Stage mainPageStage = (Stage) btn_detalles.getScene().getWindow();
+        mainPageStage.close();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("main-page.fxml"));
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+        Stage newStage = new Stage();
+        newStage.setScene(scene);
+        newStage.setTitle("Nueva Página");
+        newStage.show();
+    }
+
+    @FXML
+    private void ajustes() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ajustes.fxml"));
+        root = fxmlLoader.load();
+        scene = new Scene(root);
+
+        AjustesController ajustesController = fxmlLoader.getController();
+        ajustesController.setPrimaryStage(primaryStage);
+        ajustesController.setMainPageController(this); // Establecer referencia al MainPageController
+
+        Stage newStage = new Stage();
+        newStage.setScene(scene);
+        newStage.setTitle("Ajustes");
+        newStage.show();
+    }
+
+
 }
