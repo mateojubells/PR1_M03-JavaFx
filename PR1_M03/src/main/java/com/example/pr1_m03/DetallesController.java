@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,21 +27,30 @@ public class DetallesController implements Initializable {
     @FXML
     private TableView<Transaction> detallesTable;
 
+
     @FXML
     private TableColumn<Transaction, String> transactionColumn;
+    @FXML
+    private TableColumn<Transaction, String> transactionColumn1;
+    @FXML
+    private TableColumn<Transaction, String> transactionColumn2;
+
+    @FXML
+    private TableColumn<Transaction, String> transactionColumn3;
 
     // Transaction list to store loaded transactions
     private final ObservableList<Transaction> transactions = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Set up columns
-        transactionColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().toString()));
 
-        // Load transactions from JSON
+        transactionColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
+        transactionColumn1.setCellValueFactory(new PropertyValueFactory<>("Amount"));
+        transactionColumn2.setCellValueFactory(new PropertyValueFactory<>("Category"));
+        transactionColumn3.setCellValueFactory(new PropertyValueFactory<>("Description"));
+
         loadTransactionsFromJson();
 
-        // Populate table with transactions
         detallesTable.setItems(transactions);
     }
 
@@ -60,18 +70,24 @@ public class DetallesController implements Initializable {
     @FXML
     private void handleBackButtonAction(ActionEvent event) throws IOException {
         Stage stage = (Stage) detallesTable.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("main-page.fxml"));
-        Scene scene = new Scene(root, 600, 400);
-        stage.setScene(scene);
+        stage.close();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("main-page.fxml"));
+        Parent root = loader.load();
+
+        stage.setTitle("TransactionApp");
+
+        stage.setScene(new Scene(root, 600, 400));
         stage.show();
     }
 
     @FXML
     private void handlePieChartButtonAction(ActionEvent event) {
         try {
+            Stage stage = (Stage) detallesTable.getScene().getWindow();
+            stage.close();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("pie-chart.fxml"));
             Parent root = loader.load();
-            Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {

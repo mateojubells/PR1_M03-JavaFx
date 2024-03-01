@@ -3,6 +3,7 @@ package com.example.pr1_m03;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
@@ -28,8 +29,6 @@ public class MainPageController {
     public LineChart chrt_balance;
 
     private Stage primaryStage;
-
-
 
     private Scene scene;
     private Parent root;
@@ -73,16 +72,17 @@ public class MainPageController {
     }
 
     public void goDetalles(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("detalles.fxml"));
-        root = fxmlLoader.load();
-        scene = new Scene(root);
+        Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        currentStage.close();
 
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("detalles.fxml"));
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root);
         Stage newStage = new Stage();
         newStage.setScene(scene);
         newStage.setTitle("Detalles");
 
         newStage.show();
-        // Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     }
 
     @FXML
