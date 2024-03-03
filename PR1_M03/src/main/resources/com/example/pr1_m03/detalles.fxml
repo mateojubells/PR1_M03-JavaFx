@@ -7,14 +7,18 @@
    <children>
       <TableView fx:id="detallesTable" layoutX="47.0" layoutY="55.0" prefHeight="200.0" prefWidth="500.0">
          <columns>
-            <TableColumn fx:id="transactionColumn" prefWidth="500.0" text="Transaction Details" />
+            <TableColumn fx:id="transactionColumn" prefWidth="141.00000381469727" text="Date" />
+            <TableColumn fx:id="transactionColumn1" prefWidth="119.40000915527344" text="Amount" />
+            <TableColumn fx:id="transactionColumn2" prefWidth="95.20001220703125" text="Category" />
+            <TableColumn fx:id="transactionColumn3" prefWidth="95.20001220703125" text="Description" />
+
          </columns>
       </TableView>
       <HBox alignment="CENTER" layoutX="48.0" layoutY="323.0" prefHeight="42.0" prefWidth="500.0">
          <children>
             <Button fx:id="backButton" mnemonicParsing="false" text="Back" onAction="#handleBackButtonAction" />
             <Label text="                   " />
-            <Button mnemonicParsing="false" text="Gràfica Ingressos" />
+            <Button fx:id="pieButton" mnemonicParsing="false" text="Grafica Circular" onAction="#handlePieChartButtonAction" />
          </children>
       </HBox>
    </children>
