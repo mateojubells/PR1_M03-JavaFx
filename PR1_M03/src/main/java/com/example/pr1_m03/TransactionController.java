@@ -37,6 +37,7 @@ public class TransactionController {
     private void addTransaction(ActionEvent actionEvent) {
         Alert alert = null;
         try {
+            createTransactionTableIfNotExists();
             LocalDate date = datePicker.getValue();
             if (date == null) {
                 date = LocalDate.now();
@@ -63,6 +64,42 @@ public class TransactionController {
             alert.setTitle("Error!");
             alert.setContentText("Error: La cantidad debe ser un número válido");
             alert.showAndWait();
+        }
+    }
+
+    private void createTransactionTableIfNotExists() {
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+            connection = ConnectDB.getInstance();
+
+            // Verifica si la tabla de transacciones ya existe en la base de datos
+            DatabaseMetaData metaData = connection.getMetaData();
+            ResultSet resultSet = metaData.getTables(null, null, "transactions", null);
+
+            if (!resultSet.next()) {
+                // La tabla de transacciones no existe, entonces la creamos
+                String createTableQuery = "CREATE TABLE transactions (" +
+                        "id INT AUTO_INCREMENT PRIMARY KEY," +
+                        "category VARCHAR(255)," +
+                        "amount DOUBLE," +
+                        "description VARCHAR(255)," +
+                        "date DATE)";
+                statement = connection.prepareStatement(createTableQuery);
+                statement.executeUpdate();
+                System.out.println("Table 'transactions' created successfully.");
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 

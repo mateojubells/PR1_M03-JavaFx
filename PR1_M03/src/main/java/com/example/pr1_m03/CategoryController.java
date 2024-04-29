@@ -1,16 +1,12 @@
 package com.example.pr1_m03;
-
 import com.jdbc.utilities.ConnectDB;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 public class CategoryController {
 
     @FXML
@@ -21,6 +17,8 @@ public class CategoryController {
         String categoryName = categoryField.getText();
 
         if (!categoryName.isEmpty()) {
+            createCategoryTableIfNotExists();
+
             insertCategory(categoryName);
         }
         closeView();
@@ -51,8 +49,33 @@ public class CategoryController {
     }
 
     @FXML
-    private void closeView(){
+    private void closeView() {
         Stage categoryStage = (Stage) categoryField.getScene().getWindow();
         categoryStage.close();
+    }
+
+    private void createCategoryTableIfNotExists() {
+        String createTableQuery = "CREATE TABLE IF NOT EXISTS category (" +
+                "id INT AUTO_INCREMENT PRIMARY KEY," +
+                "name VARCHAR(255))";
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+            connection = ConnectDB.getInstance();
+            statement = connection.prepareStatement(createTableQuery);
+            statement.executeUpdate();
+            System.out.println("Table 'category' created successfully (if not exists).");
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
