@@ -23,7 +23,6 @@ public class PieChartController implements Initializable {
     }
 
     private void loadChartData() {
-        // Obtener la lista de transacciones
         TransactionList transactionList = new TransactionList();
         transactionList.loadTransactionsFromJson(Paths.get("Transactions.json"));
 
@@ -34,13 +33,11 @@ public class PieChartController implements Initializable {
             categoryCounts.put(category, categoryCounts.getOrDefault(category, 0) + 1);
         }
 
-        // Crear los datos para la gráfica circular
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
         categoryCounts.forEach((category, count) -> {
             pieChartData.add(new PieChart.Data(category, count));
         });
 
-        // Configurar la gráfica circular
         pieChart.setData(pieChartData);
         pieChart.setTitle("Uso de Categorías");
     }

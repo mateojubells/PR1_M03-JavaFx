@@ -1,5 +1,5 @@
 package com.example.pr1_m03;
-
+import com.jdbc.utilities.ConnectDB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,20 +14,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.sql.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class TransactionController {
     @FXML
@@ -38,15 +27,11 @@ public class TransactionController {
     private TextField descriptionField;
     @FXML
     private ComboBox<String> categoryComboBox;
-    @FXML
-    private List<Category> categories = new ArrayList<>();
 
+    private ObservableList<String> categoryNames = FXCollections.observableArrayList();
 
-     TransactionList transactionList = new TransactionList();
-    // Instancia de TransactionList
     public TransactionController() {
     }
-
 
     @FXML
     private void addTransaction(ActionEvent actionEvent) {
@@ -54,7 +39,7 @@ public class TransactionController {
         try {
             LocalDate date = datePicker.getValue();
             if (date == null) {
-               date = LocalDate.now();
+                date = LocalDate.now();
             }
 
             String category = categoryComboBox.getValue();
@@ -66,14 +51,11 @@ public class TransactionController {
                 category = "";
             }
 
-            // Verificar si la descripción es nula y asignar una cadena vacía en su lugar
             if (description == null) {
                 description = "";
             }
+            saveTransactionToDatabase(category, amount, description, date);
 
-            Transaction newTransaction = new Transaction(category, amount, description, date);
-
-            transactionList.addTransaction(newTransaction);
             changeToMainPageView();
 
         } catch (NumberFormatException e) {
@@ -84,28 +66,69 @@ public class TransactionController {
         }
     }
 
+    private void saveTransactionToDatabase(String category, double amount, String description, LocalDate date) {
+        Connection connection = null;
+        PreparedStatement statement = null;
 
+        try {
+            connection = ConnectDB.getInstance();
 
+            String query = "INSERT INTO transactions (category, amount, description, date) VALUES (?, ?, ?, ?)";
+            statement = connection.prepareStatement(query);
+            statement.setString(1, category);
+            statement.setDouble(2, amount);
+            statement.setString(3, description);
+            statement.setDate(4, Date.valueOf(date));
+
+            statement.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     public void initialize() {
-        loadCategoriesFromJson();
-        ObservableList<String> categoryNames = FXCollections.observableArrayList();
-        for (Category category : categories) {
-            categoryNames.add(category.getName());
-        }
+        loadCategoriesFromDatabase();
         categoryComboBox.setItems(categoryNames);
     }
 
-    private void loadCategoriesFromJson() {
-        try (InputStream is = new FileInputStream("Categories.json");
-             JsonReader jsonReader = Json.createReader(is)) {
-            JsonArray jsonArray = jsonReader.readArray();
-            for (JsonObject jsonObject : jsonArray.getValuesAs(JsonObject.class)) {
-                String name = jsonObject.getString("name");
-                categories.add(new Category(name));
+    private void loadCategoriesFromDatabase() {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = ConnectDB.getInstance();
+
+            String query = "SELECT name FROM category";
+            statement = connection.prepareStatement(query);
+
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String name = resultSet.getString("name");
+                categoryNames.add(name);
             }
-        } catch (IOException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -152,6 +175,4 @@ public class TransactionController {
             e.printStackTrace();
         }
     }
-
 }
-

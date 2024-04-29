@@ -1,69 +1,58 @@
 package com.example.pr1_m03;
 
+import com.jdbc.utilities.ConnectDB;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.TextField;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-import javax.json.*;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 
 public class CategoryController {
 
     @FXML
     private TextField categoryField;
 
-    CategoryList categoryList = new CategoryList();
-    private Scene scene;
-    private Parent root;
-    TransactionController transactionController;
-    MainPageController mainController;
-
     @FXML
     private void newCategory(ActionEvent actionEvent) {
         String categoryName = categoryField.getText();
 
         if (!categoryName.isEmpty()) {
-            Category category = new Category(categoryName);
-            categoryList.addCategories(category);
+            insertCategory(categoryName);
         }
         closeView();
+    }
 
+    private void insertCategory(String categoryName) {
+        String sql = "INSERT INTO category (name) VALUES (?)";
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+            connection = ConnectDB.getInstance();
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, categoryName);
+            statement.executeUpdate();
+            System.out.println("Category inserted successfully.");
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML
     private void closeView(){
-        try{
-            categoryField.clear();
-            Stage categoryStage = (Stage) categoryField.getScene().getWindow();
-            categoryStage.close();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("add-transaction.fxml"));
-            root = fxmlLoader.load();
-            scene = new Scene(root);
-
-            Stage newStage = new Stage();
-            newStage.setScene(scene);
-            newStage.setTitle("Agregar Gasto");
-
-            newStage.show();
-        }catch (IOException r) {
-            System.out.printf("Error");
-        }
-
-
+        Stage categoryStage = (Stage) categoryField.getScene().getWindow();
+        categoryStage.close();
     }
-
-
 }

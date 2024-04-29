@@ -25,8 +25,6 @@ public class DetallesController implements Initializable {
     public Button pieButton;
     @FXML
     private TableView<Transaction> detallesTable;
-
-
     @FXML
     private TableColumn<Transaction, String> transactionColumn;
     @FXML
@@ -54,15 +52,12 @@ public class DetallesController implements Initializable {
     }
 
     private void loadTransactionsFromJson() {
-        // Replace this path with your actual file path
         String jsonFilePath = "Transactions.json";
 
-        // Load transactions from JSON
         TransactionList transactionList = new TransactionList();
         transactionList.loadTransactionsFromJson(Paths.get(jsonFilePath));
         List<Transaction> loadedTransactions = transactionList.getAllTransactions();
 
-        // Add loaded transactions to the observable list
         transactions.addAll(loadedTransactions);
     }
 

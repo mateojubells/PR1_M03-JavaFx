@@ -100,7 +100,6 @@ public class AjustesController {
         try {
             mainPageController.reiniciar();
 
-            // Obtener la referencia al AnchorPane actual (puede ser cualquier nodo presente en la vista)
             AnchorPane anchorPane = (AnchorPane) primaryStage.getScene().getRoot();
             Stage stage = (Stage) anchorPane.getScene().getWindow();
             stage.close();

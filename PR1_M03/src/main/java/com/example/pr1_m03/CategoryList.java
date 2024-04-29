@@ -1,107 +1,61 @@
 package com.example.pr1_m03;
 
-import javax.json.*;
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import com.jdbc.utilities.ConnectDB;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class CategoryList {
     private List<Category> allCategories = new ArrayList<>();
 
-    private static final String JSON_FILE_PATH = "categories.json";
     public CategoryList() {
-        Path jsonFilePath = Paths.get(JSON_FILE_PATH);
-        if (Files.exists(jsonFilePath)) {
-            loadCategoriesFromJson(jsonFilePath);
-        } else {
-            allCategories = new ArrayList<>();
-        }
+        loadCategoriesFromDatabase();
     }
 
-    public void addCategories(Category category) {
-        allCategories.add(category);
-        saveCategoryToJson(Paths.get(JSON_FILE_PATH));
-    }
-    private void saveCategoryToJson(Path path)  {
-        OutputStream os = null;
-        JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
-        JsonWriter jsonWriter = null;
-        InputStream is = null;
+    private void loadCategoriesFromDatabase() {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
 
         try {
-            if (Files.exists(path)) {
-                is = new FileInputStream(path.toFile());
-                JsonReader existingJsonReader = Json.createReader(is);
-                JsonArray existingJsonArray = existingJsonReader.readArray();
+            // Establecer conexión con la base de datos
+            connection = ConnectDB.getInstance();
 
-                for (JsonValue jsonValue : existingJsonArray) {
-                    jsonArrayBuilder.add(jsonValue);
-                }
-            }
+            // Consulta SQL para obtener las categorías
+            String query = "SELECT name FROM category";
+            statement = connection.prepareStatement(query);
 
-            // Agregar solo la última categoría al archivo JSON
-            Category lastCategory = allCategories.get(allCategories.size() - 1);
-            jsonArrayBuilder.add(convertToJson(lastCategory));
+            // Ejecutar la consulta
+            resultSet = statement.executeQuery();
 
-            os = new FileOutputStream(path.toFile());
-            jsonWriter = Json.createWriter(os);
-            jsonWriter.writeArray(jsonArrayBuilder.build());
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (jsonWriter != null) {
-                jsonWriter.close();
-            }
-            try {
-                if (os != null) {
-                    os.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-
-    private void loadCategoriesFromJson(Path path) {
-        InputStream is = null;
-        JsonReader jsonReader = null;
-        try {
-            is = new FileInputStream(path.toFile());
-            jsonReader = Json.createReader(is);
-            JsonArray jsonArray = jsonReader.readArray();
-
-            for (JsonValue jsonValue : jsonArray) {
-                JsonObject jsonObject = jsonValue.asJsonObject();
-                String name = jsonObject.getString("name");
-
+            // Iterar sobre los resultados y crear objetos Category
+            while (resultSet.next()) {
+                String name = resultSet.getString("name");
                 Category category = new Category(name);
                 allCategories.add(category);
             }
-        } catch (FileNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         } finally {
-            if (jsonReader != null) {
-                jsonReader.close();
-            }
+            // Cerrar la conexión y liberar recursos
             try {
-                if (is != null) {
-                    is.close();
+                if (resultSet != null) {
+                    resultSet.close();
                 }
-            } catch (IOException e) {
+                if (statement != null) {
+                    statement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
     }
 
-
-    public JsonObject convertToJson(Category category) {
-        JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
-        jsonObjectBuilder.add("name", category.getName());
-        return jsonObjectBuilder.build();
-    }
+    // Resto del código...
 }
