@@ -1,4 +1,5 @@
 package com.example.pr1_m03;
+
 import com.jdbc.utilities.ConnectDB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +18,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.List;
 
 public class TransactionController {
     @FXML
@@ -29,15 +31,16 @@ public class TransactionController {
     private ComboBox<String> categoryComboBox;
 
     private ObservableList<String> categoryNames = FXCollections.observableArrayList();
+    private TransactionDAO transactionDAO;
 
     public TransactionController() {
+        this.transactionDAO = new TransactionDAOImpl();
     }
 
     @FXML
     private void addTransaction(ActionEvent actionEvent) {
         Alert alert = null;
         try {
-            createTransactionTableIfNotExists();
             LocalDate date = datePicker.getValue();
             if (date == null) {
                 date = LocalDate.now();
@@ -55,7 +58,12 @@ public class TransactionController {
             if (description == null) {
                 description = "";
             }
-            saveTransactionToDatabase(category, amount, description, date);
+
+            // Crear una nueva transacción
+            Transaction transaction = new Transaction(category, amount, description, date);
+
+            // Guardar la transacción utilizando el DAO
+            transactionDAO.saveTransaction(transaction);
 
             changeToMainPageView();
 
@@ -67,107 +75,29 @@ public class TransactionController {
         }
     }
 
-    private void createTransactionTableIfNotExists() {
-        Connection connection = null;
-        PreparedStatement statement = null;
-
-        try {
-            connection = ConnectDB.getInstance();
-
-            // Verifica si la tabla de transacciones ya existe en la base de datos
-            DatabaseMetaData metaData = connection.getMetaData();
-            ResultSet resultSet = metaData.getTables(null, null, "transactions", null);
-
-            if (!resultSet.next()) {
-                // La tabla de transacciones no existe, entonces la creamos
-                String createTableQuery = "CREATE TABLE transactions (" +
-                        "id INT AUTO_INCREMENT PRIMARY KEY," +
-                        "category VARCHAR(255)," +
-                        "amount DOUBLE," +
-                        "description VARCHAR(255)," +
-                        "date DATE)";
-                statement = connection.prepareStatement(createTableQuery);
-                statement.executeUpdate();
-                System.out.println("Table 'transactions' created successfully.");
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void saveTransactionToDatabase(String category, double amount, String description, LocalDate date) {
-        Connection connection = null;
-        PreparedStatement statement = null;
-
-        try {
-            connection = ConnectDB.getInstance();
-
-            String query = "INSERT INTO transactions (category, amount, description, date) VALUES (?, ?, ?, ?)";
-            statement = connection.prepareStatement(query);
-            statement.setString(1, category);
-            statement.setDouble(2, amount);
-            statement.setString(3, description);
-            statement.setDate(4, Date.valueOf(date));
-
-            statement.executeUpdate();
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     public void initialize() {
         loadCategoriesFromDatabase();
         categoryComboBox.setItems(categoryNames);
     }
 
     private void loadCategoriesFromDatabase() {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-
         try {
-            connection = ConnectDB.getInstance();
+            // Utilizar el DAO para obtener todas las categorías
+            CategoryDAO categoryDAO = new CategoryDAOImpl();
+            List<Category> categories = categoryDAO.getAllCategories();
 
-            String query = "SELECT name FROM category";
-            statement = connection.prepareStatement(query);
+            // Limpiar la lista actual de nombres de categorías
+            categoryNames.clear();
 
-            resultSet = statement.executeQuery();
-
-            while (resultSet.next()) {
-                String name = resultSet.getString("name");
-                categoryNames.add(name);
+            // Agregar los nombres de las categorías obtenidas al ObservableList
+            for (Category category : categories) {
+                categoryNames.add(category.getName());
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
+
 
     @FXML
     private void openNewCategory() {
@@ -185,7 +115,6 @@ public class TransactionController {
             e.printStackTrace();
         }
     }
-
 
     @FXML
     private void changeToMainPageView() {

@@ -1,25 +1,24 @@
 package com.example.pr1_m03;
 
+import com.jdbc.utilities.ConnectDB;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class AjustesController {
 
-    private static final String JSON_TRANSACCIONES = "Transactions.json";
-    private static final String JSON_CATEGORIAS = "Categories.json";
     private Stage primaryStage; // Referencia al Stage de MainPage
     private MainPageController mainPageController;
+    private Connection connection; // Mantener la conexión abierta mientras la aplicación esté en ejecución
 
     public void setMainPageController(MainPageController mainPageController) {
         this.mainPageController = mainPageController;
@@ -29,15 +28,26 @@ public class AjustesController {
         this.primaryStage = primaryStage;
     }
 
+    // Método para cerrar la conexión cuando se cierra la aplicación
+    public void cerrarConexion() {
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     @FXML
     private void reiniciarTransacciones(ActionEvent event) {
         mostrarAlertaConfirmacion("Reiniciar Transacciones", "¿Estás seguro de que quieres reiniciar todas las transacciones?", () -> {
             try {
-                Files.deleteIfExists(Paths.get(JSON_TRANSACCIONES));
+                // Eliminar todas las transacciones de la base de datos
+                eliminarTodasLasTransacciones();
                 mostrarAlertaInformativa("Transacciones Eliminadas", "Se han eliminado todas las transacciones.");
                 llamarMetodoReiniciar();
-            } catch (IOException e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 mostrarAlertaError("Error al Eliminar Transacciones", "Ha ocurrido un error al eliminar las transacciones.");
             }
@@ -48,10 +58,11 @@ public class AjustesController {
     private void reiniciarCategorias(ActionEvent event) {
         mostrarAlertaConfirmacion("Reiniciar Categorías", "¿Estás seguro de que quieres reiniciar todas las categorías?", () -> {
             try {
-                Files.deleteIfExists(Paths.get(JSON_CATEGORIAS));
+                // Eliminar todas las categorías de la base de datos
+                eliminarTodasLasCategorias();
                 mostrarAlertaInformativa("Categorías Eliminadas", "Se han eliminado todas las categorías.");
                 llamarMetodoReiniciar();
-            } catch (IOException e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 mostrarAlertaError("Error al Eliminar Categorías", "Ha ocurrido un error al eliminar las categorías.");
             }
@@ -59,7 +70,8 @@ public class AjustesController {
     }
 
     @FXML
-    private void cerrarAplicacion(ActionEvent event) {
+    private void cerrarAplicacion() {
+        cerrarConexion(); // Cerrar la conexión al cerrar la aplicación
         Platform.exit();
     }
 
@@ -95,6 +107,7 @@ public class AjustesController {
         alert.setContentText(contenido);
         alert.showAndWait();
     }
+
     @FXML
     private void llamarMetodoReiniciar() {
         try {
@@ -108,7 +121,50 @@ public class AjustesController {
         }
     }
 
+    private void eliminarTodasLasTransacciones() throws SQLException {
+        PreparedStatement statement = null;
 
+        try {
 
+            connection = ConnectDB.getInstance();
 
+            String query = "DELETE FROM transactions";
+            statement = connection.prepareStatement(query);
+
+            statement.executeUpdate();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void eliminarTodasLasCategorias() throws SQLException {
+        PreparedStatement statement = null;
+
+        try {
+            connection = ConnectDB.getInstance();
+
+            String query = "DELETE FROM category";
+            statement = connection.prepareStatement(query);
+
+            statement.executeUpdate();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
