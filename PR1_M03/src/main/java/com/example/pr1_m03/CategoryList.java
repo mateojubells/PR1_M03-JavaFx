@@ -6,9 +6,15 @@ public class CategoryList {
     private List<Category> allCategories;
 
     public CategoryList() {
+        loadCategoriesFromDatabase();
+    }
+
+    private void loadCategoriesFromDatabase() {
         CategoryDAO categoryDAO = new CategoryDAOImpl();
         allCategories = categoryDAO.getAllCategories();
     }
 
-    // Resto del código...
+    public List<Category> getAllCategories() {
+        return allCategories;
+    }
 }
