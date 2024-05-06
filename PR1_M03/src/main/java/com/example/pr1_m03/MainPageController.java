@@ -98,41 +98,55 @@ public class MainPageController {
      * Función que permite añadir información a la gráfica de ingresos
      */
     private void addTransactionData() {
-        TransactionList transactionList = new TransactionList();
-        List<Transaction> transactions = transactionList.getAllTransactions();
-
+        total.getData().clear();
         int[] monthsTotals = new int[12];
         int[] monthsEarnings = new int[12];
         int[] monthsSpendings = new int[12];
         int yearTotal = 0;
 
-        // Procesar las transacciones
+        TransactionDAOImpl transactionDAO = new TransactionDAOImpl();
+        List<Transaction> transactions = transactionDAO.getAllTransactions();
+
         for (Transaction transaction : transactions) {
+            double amount = transaction.getAmount();
             LocalDate date = transaction.getDate();
             LocalDate currentDate = LocalDate.now();
 
             if (date.getYear() == currentDate.getYear()) {
-                int monthIndex = date.getMonthValue() - 1;
+                Month month = date.getMonth();
+                int monthIndex = month.getValue() - 1;
 
-                monthsTotals[monthIndex] += transaction.getAmount();
-                if (transaction.getAmount() > 0) {
-                    monthsEarnings[monthIndex] += transaction.getAmount();
+                monthsTotals[monthIndex] += amount;
+                if (amount > 0) {
+                    monthsEarnings[monthIndex] += amount;
                 } else {
-                    monthsSpendings[monthIndex] += transaction.getAmount();
+                    monthsSpendings[monthIndex] += amount;
                 }
             }
         }
 
-        // Crear la gráfica con los datos procesados
+        // Total year
         for (int i = 0; i < 12; i++) {
             total.getData().add(new XYChart.Data<>(String.valueOf(i + 1), monthsTotals[i]));
-            earnings.getData().add(new XYChart.Data<>(String.valueOf(i + 1), monthsEarnings[i]));
-            spendings.getData().add(new XYChart.Data<>(String.valueOf(i + 1), monthsSpendings[i]));
+        }
+        chrt_balance.getData().add(total);
 
-            yearTotal += monthsTotals[i];
+        // Total earnings
+        for (int i = 0; i < 12; i++) {
+            earnings.getData().add(new XYChart.Data<>(String.valueOf(i + 1), monthsEarnings[i]));
+        }
+        chrt_balance.getData().add(earnings);
+
+        // Total spendings
+        for (int i = 0; i < 12; i++) {
+            spendings.getData().add(new XYChart.Data<>(String.valueOf(i + 1), monthsSpendings[i]));
+        }
+        chrt_balance.getData().add(spendings);
+
+        for (int monthsTotal : monthsTotals) {
+            yearTotal += monthsTotal;
         }
 
-        // Configurar el total del año
         if (yearTotal <= 0) {
             lbl_total.setTextFill(Color.RED);
             lbl_total.setText(yearTotal + "€");
@@ -141,6 +155,7 @@ public class MainPageController {
             lbl_total.setText(yearTotal + "€");
         }
     }
+
     @FXML
     void reiniciar() throws IOException {
         Stage mainPageStage = (Stage) btn_detalles.getScene().getWindow();

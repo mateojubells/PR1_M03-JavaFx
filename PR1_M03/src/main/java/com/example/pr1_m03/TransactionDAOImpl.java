@@ -47,38 +47,47 @@ public class TransactionDAOImpl implements TransactionDAO {
 
     @Override
     public List<Transaction> getAllTransactions() {
-        Connection connection;
-        Statement statement = null;
+        List<Transaction> transactions = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement statement = null;
         ResultSet resultSet = null;
 
-        List<Transaction> transactions = new ArrayList<>();
-
         try {
+            // Obtener la conexión
             connection = ConnectDB.getInstance();
 
+            // Preparar la consulta para obtener todas las transacciones
             String query = "SELECT * FROM transactions";
-            statement = connection.createStatement();
+            statement = connection.prepareStatement(query);
 
-            resultSet = statement.executeQuery(query);
+            // Ejecutar la consulta y obtener el resultado
+            resultSet = statement.executeQuery();
 
+            // Procesar el resultado
             while (resultSet.next()) {
                 String category = resultSet.getString("category");
+                // Si la categoría está vacía, establecerla en un espacio en blanco
+                if (category == null || category.isEmpty()) {
+                    category = " ";
+                }
                 double amount = resultSet.getDouble("amount");
                 String description = resultSet.getString("description");
                 LocalDate date = resultSet.getDate("date").toLocalDate();
 
+                // Crear una nueva transacción y agregarla a la lista
                 Transaction transaction = new Transaction(category, amount, description, date);
                 transactions.add(transaction);
             }
-
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
-            // Cerrar los recursos
             try {
+                // Cerrar el conjunto de resultados
                 if (resultSet != null) {
                     resultSet.close();
                 }
+
+                // Cerrar la declaración
                 if (statement != null) {
                     statement.close();
                 }
@@ -89,6 +98,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 
         return transactions;
     }
+
 
 
     // Método para crear la tabla si no existe
