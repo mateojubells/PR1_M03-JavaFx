@@ -14,6 +14,11 @@ public class MainPageApplication extends Application {
     private TransactionList transactionList = new TransactionList();
     private Connection connection;
 
+    @Override
+    public void init() throws Exception {
+        connection = ConnectDB.getInstance();
+        System.out.println("Conexion establecida");
+    }
 
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-page.fxml"));
@@ -23,7 +28,6 @@ public class MainPageApplication extends Application {
         mainPageController.setTransactionList(transactionList);
 
         // Pasar la conexión al controlador AjustesController
-        AjustesController ajustesController = fxmlLoader.getController();
 
         Scene scene = new Scene(root, 600, 400);
         stage.setTitle("Página principal");

@@ -15,7 +15,7 @@ public class ConnectDB {
 
     public static Connection getInstance() throws SQLException, ClassNotFoundException {
         if (instance == null) {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             instance = DriverManager.getConnection(MYSQLDEMOConnection.url,
                     MYSQLDEMOConnection.username,
                     MYSQLDEMOConnection.password);

@@ -21,6 +21,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.List;
 
 public class MainPageController {
     public Button btn_gastos;
@@ -102,122 +103,28 @@ public class MainPageController {
         int[] monthsEarnings = new int[12];
         int[] monthsSpendings = new int[12];
         int yearTotal = 0;
-        try (JsonReader reader = Json.createReader(new FileReader("Transactions.json"))) {
-            JsonArray jsonArray = reader.readArray();
-            for (JsonObject jsonObject : jsonArray.getValuesAs(JsonObject.class)) {
-                int amount = jsonObject.getInt("amount");
-                String dateString = jsonObject.getString("date");
 
-                LocalDate date = LocalDate.parse(dateString);
-                LocalDate currentDate = LocalDate.now();
+        TransactionDAOImpl transactionDAO = new TransactionDAOImpl();
+        List<Transaction> transactions = transactionDAO.getAllTransactions();
 
-                if (date.getYear() == currentDate.getYear()) {
-                    Month month = date.getMonth();
+        for (Transaction transaction : transactions) {
+            double amount = transaction.getAmount();
+            LocalDate date = transaction.getDate();
+            LocalDate currentDate = LocalDate.now();
 
-                    switch (month) {
-                        case JANUARY:
-                            monthsTotals[0] += amount;
-                            if (amount > 0) {
-                                monthsEarnings[0] += amount;
-                            } else {
-                                monthsSpendings[0] += amount;
-                            }
-                            break;
-                        case FEBRUARY:
-                            monthsTotals[1] += amount;
-                            if (amount > 0) {
-                                monthsEarnings[1] += amount;
-                            } else {
-                                monthsSpendings[1] += amount;
-                            }
-                            break;
-                        case MARCH:
-                            monthsTotals[2] += amount;
-                            if (amount > 0) {
-                                monthsEarnings[2] += amount;
-                            } else {
-                                monthsSpendings[2] += amount;
-                            }
-                            break;
-                        case APRIL:
-                            monthsTotals[3] += amount;
-                            if (amount > 0) {
-                                monthsEarnings[3] += amount;
-                            } else {
-                                monthsSpendings[3] += amount;
-                            }
-                            break;
-                        case MAY:
-                            monthsTotals[4] += amount;
-                            if (amount > 0) {
-                                monthsEarnings[4] += amount;
-                            } else {
-                                monthsSpendings[4] += amount;
-                            }
-                            break;
-                        case JUNE:
-                            monthsTotals[5] += amount;
-                            if (amount > 0) {
-                                monthsEarnings[5] += amount;
-                            } else {
-                                monthsSpendings[5] += amount;
-                            }
-                            break;
-                        case JULY:
-                            monthsTotals[6] += amount;
-                            if (amount > 0) {
-                                monthsEarnings[6] += amount;
-                            } else {
-                                monthsSpendings[6] += amount;
-                            }
-                            break;
-                        case AUGUST:
-                            monthsTotals[7] += amount;
-                            if (amount > 0) {
-                                monthsEarnings[7] += amount;
-                            } else {
-                                monthsSpendings[7] += amount;
-                            }
-                            break;
-                        case SEPTEMBER:
-                            monthsTotals[8] += amount;
-                            if (amount > 0) {
-                                monthsEarnings[8] += amount;
-                            } else {
-                                monthsSpendings[8] += amount;
-                            }
-                            break;
-                        case OCTOBER:
-                            monthsTotals[9] += amount;
-                            if (amount > 0) {
-                                monthsEarnings[9] += amount;
-                            } else {
-                                monthsSpendings[9] += amount;
-                            }
-                            break;
-                        case NOVEMBER:
-                            monthsTotals[10] += amount;
-                            if (amount > 0) {
-                                monthsEarnings[10] += amount;
-                            } else {
-                                monthsSpendings[10] += amount;
-                            }
-                            break;
-                        case DECEMBER:
-                            monthsTotals[11] += amount;
-                            if (amount > 0) {
-                                monthsEarnings[11] += amount;
-                            } else {
-                                monthsSpendings[11] += amount;
-                            }
-                            break;
-                    }
+            if (date.getYear() == currentDate.getYear()) {
+                Month month = date.getMonth();
+                int monthIndex = month.getValue() - 1;
+
+                monthsTotals[monthIndex] += amount;
+                if (amount > 0) {
+                    monthsEarnings[monthIndex] += amount;
+                } else {
+                    monthsSpendings[monthIndex] += amount;
                 }
             }
-
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+
         // Total year
         for (int i = 0; i < 12; i++) {
             total.getData().add(new XYChart.Data<>(String.valueOf(i + 1), monthsTotals[i]));
@@ -248,6 +155,7 @@ public class MainPageController {
             lbl_total.setText(yearTotal + "€");
         }
     }
+
     @FXML
     void reiniciar() throws IOException {
         Stage mainPageStage = (Stage) btn_detalles.getScene().getWindow();

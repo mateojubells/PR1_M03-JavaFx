@@ -1,12 +1,11 @@
 package com.example.pr1_m03;
 
-import com.example.pr1_m03.Transaction;
 import com.jdbc.utilities.ConnectDB;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TransactionDAOImpl implements TransactionDAO {
 
@@ -45,6 +44,62 @@ public class TransactionDAOImpl implements TransactionDAO {
             }
         }
     }
+
+    @Override
+    public List<Transaction> getAllTransactions() {
+        List<Transaction> transactions = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            // Obtener la conexión
+            connection = ConnectDB.getInstance();
+
+            // Preparar la consulta para obtener todas las transacciones
+            String query = "SELECT * FROM transactions";
+            statement = connection.prepareStatement(query);
+
+            // Ejecutar la consulta y obtener el resultado
+            resultSet = statement.executeQuery();
+
+            // Procesar el resultado
+            while (resultSet.next()) {
+                String category = resultSet.getString("category");
+                // Si la categoría está vacía, establecerla en un espacio en blanco
+                if (category == null || category.isEmpty()) {
+                    category = " ";
+                }
+                double amount = resultSet.getDouble("amount");
+                String description = resultSet.getString("description");
+                LocalDate date = resultSet.getDate("date").toLocalDate();
+
+                // Crear una nueva transacción y agregarla a la lista
+                Transaction transaction = new Transaction(category, amount, description, date);
+                transactions.add(transaction);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                // Cerrar el conjunto de resultados
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+
+                // Cerrar la declaración
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return transactions;
+    }
+
+
 
     // Método para crear la tabla si no existe
     private void createTableIfNotExists(Connection connection) {
