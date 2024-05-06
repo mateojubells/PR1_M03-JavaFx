@@ -17,7 +17,7 @@ public class CategoryController {
         String categoryName = categoryField.getText();
 
         if (!categoryName.isEmpty()) {
-            categoryDAO.insertCategory(categoryName); // Llama al método insertCategory del DAO
+            categoryDAO.insertCategory(categoryName);
         }
         closeView();
     }
