@@ -154,5 +154,4 @@ public class DetallesController implements Initializable {
             e.printStackTrace();
         }
     }
-
 }
