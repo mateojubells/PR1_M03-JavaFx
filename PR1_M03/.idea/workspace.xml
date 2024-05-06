@@ -5,23 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b88c8902-7d61-42ca-980a-746ccd780ac9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/CategoryDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/CategoryDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/TransactionDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/TransactionDAOImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/AjustesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/AjustesController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/CategoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/CategoryList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/CategoryList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/HelloApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/MainPageApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/MainPageApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/TransactionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pr1_m03/TransactionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jdbc/utilities/ConnectDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jdbc/utilities/ConnectDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jdbc/utilities/MYSQLDEMOConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jdbc/utilities/MYSQLDEMOConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/AjustesController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/AjustesController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/HelloApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/HelloApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/MainPageApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/MainPageApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/TransactionController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/TransactionController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/CategoryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/CategoryController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/CategoryList.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/pr1_m03/CategoryList.class" afterDir="false" />
     </list>
     <list id="d631be85-2ad1-4709-8e98-1fce7cdee732" name="Changes by polcr" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -245,7 +232,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714400782272</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Catgories and transactions save in ddbb">
+      <option name="closed" value="true" />
+      <created>1714649332571</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1714649332571</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="UnknownFeatures">
