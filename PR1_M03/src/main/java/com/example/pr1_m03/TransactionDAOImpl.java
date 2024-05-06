@@ -3,6 +3,9 @@ package com.example.pr1_m03;
 import com.jdbc.utilities.ConnectDB;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TransactionDAOImpl implements TransactionDAO {
 
@@ -43,33 +46,31 @@ public class TransactionDAOImpl implements TransactionDAO {
     }
 
     @Override
-    public void getAllTransactions() {
-        Connection connection = null;
+    public List<Transaction> getAllTransactions() {
+        Connection connection;
         Statement statement = null;
         ResultSet resultSet = null;
 
+        List<Transaction> transactions = new ArrayList<>();
+
         try {
-            // Obtener la conexión
             connection = ConnectDB.getInstance();
 
-            // Preparar la consulta para obtener todas las transacciones
             String query = "SELECT * FROM transactions";
             statement = connection.createStatement();
 
-            // Ejecutar la consulta y obtener el resultado
             resultSet = statement.executeQuery(query);
 
-            // Procesar los resultados
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
                 String category = resultSet.getString("category");
                 double amount = resultSet.getDouble("amount");
                 String description = resultSet.getString("description");
-                Date date = resultSet.getDate("date");
+                LocalDate date = resultSet.getDate("date").toLocalDate();
 
-                // Aquí puedes hacer lo que quieras con los datos de la transacción, como imprimirlos por ejemplo
-                System.out.println("ID: " + id + ", Category: " + category + ", Amount: " + amount + ", Description: " + description + ", Date: " + date);
+                Transaction transaction = new Transaction(category, amount, description, date);
+                transactions.add(transaction);
             }
+
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
@@ -85,7 +86,10 @@ public class TransactionDAOImpl implements TransactionDAO {
                 e.printStackTrace();
             }
         }
+
+        return transactions;
     }
+
 
     // Método para crear la tabla si no existe
     private void createTableIfNotExists(Connection connection) {

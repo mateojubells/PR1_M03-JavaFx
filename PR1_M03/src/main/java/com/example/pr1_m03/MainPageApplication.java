@@ -23,7 +23,6 @@ public class MainPageApplication extends Application {
         mainPageController.setTransactionList(transactionList);
 
         // Pasar la conexión al controlador AjustesController
-        AjustesController ajustesController = fxmlLoader.getController();
 
         Scene scene = new Scene(root, 600, 400);
         stage.setTitle("Página principal");
