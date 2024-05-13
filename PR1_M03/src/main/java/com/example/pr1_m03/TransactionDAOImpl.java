@@ -78,6 +78,35 @@ public class TransactionDAOImpl implements TransactionDAO {
         }
     }
 
+    public void deleteTransaction(int transactionId){
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+            connection = ConnectDB.getInstance();
+
+            // Preparar la consulta para eliminar la transacción por su ID
+            String query = "DELETE FROM transactions WHERE id = ?";
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, transactionId);
+
+            // Ejecutar la consulta
+            statement.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
+
     public List<Transaction> getAllTransactions() {
         List<Transaction> transactions = new ArrayList<>();
         Connection connection = null;
@@ -129,9 +158,6 @@ public class TransactionDAOImpl implements TransactionDAO {
     }
 
 
-
-
-
     // Método para crear la tabla si no existe
     private void createTableIfNotExists(Connection connection) {
         try (Statement statement = connection.createStatement()) {
@@ -147,6 +173,8 @@ public class TransactionDAOImpl implements TransactionDAO {
             e.printStackTrace();
         }
     }
+
+
 
 
 

@@ -1,6 +1,7 @@
 package com.example.pr1_m03;
 
 import com.jdbc.utilities.ConnectDB;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -51,6 +52,10 @@ public class DetallesController implements Initializable {
     @FXML
     private TableColumn<Transaction, Void> transactionColumn4;
 
+    @FXML
+    private TableColumn<Transaction, Void> transactionColumn5;
+
+
     // Transaction list to store loaded transactions
     private final ObservableList<Transaction> transactions = FXCollections.observableArrayList();
 
@@ -62,6 +67,7 @@ public class DetallesController implements Initializable {
         transactionColumn2.setCellValueFactory(new PropertyValueFactory<>("Category"));
         transactionColumn3.setCellValueFactory(new PropertyValueFactory<>("Description"));
         transactionColumn4.setCellValueFactory(new PropertyValueFactory<>("Edit"));
+        transactionColumn5.setCellValueFactory(param -> new SimpleObjectProperty<>(null));
 
         loadTransactionsFromDatabase(); // Cargar transacciones desde la base de datos
 
@@ -94,6 +100,46 @@ public class DetallesController implements Initializable {
                 };
 
         transactionColumn4.setCellFactory(cellFactory);
+
+        Callback<TableColumn<Transaction, Void>, TableCell<Transaction, Void>> deleteCellFactory =
+                new Callback<>() {
+                    @Override
+                    public TableCell<Transaction, Void> call(final TableColumn<Transaction, Void> param) {
+                        return new TableCell<Transaction, Void>() {
+                            private final Button btn2 = new Button("Delete");
+
+                            {
+                                btn2.setOnAction(event -> {
+                                    Transaction transaction = getTableView().getItems().get(getIndex());
+                                    eliminarTransaccion(transaction);
+                                });
+                            }
+
+                            @Override
+                            protected void updateItem(Void item, boolean empty) {
+                                super.updateItem(item, empty);
+                                if (empty) {
+                                    setGraphic(null);
+                                } else {
+                                    setGraphic(btn2);
+                                }
+                            }
+                        };
+                    }
+                };
+
+        transactionColumn5.setCellFactory(deleteCellFactory);
+    }
+
+    private void eliminarTransaccion(Transaction transaction) {
+        try {
+            TransactionDAO transactionDAO = new TransactionDAOImpl();
+            transactionDAO.deleteTransaction(transaction.getId()); // Suponiendo que tienes un método en tu DAO para eliminar una transacción por su ID
+
+            transactions.remove(transaction);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void abrirFormularioEdicion(Transaction transaction) {

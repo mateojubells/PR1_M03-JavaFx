@@ -6,5 +6,7 @@ public interface TransactionDAO {
     void saveTransaction(Transaction transaction);
     List<Transaction> getAllTransactions();
 
-    void updateTransaction(Transaction transaction); // Nuevo método
+    void updateTransaction(Transaction transaction);
+
+    void deleteTransaction(int transactionId);
 }
