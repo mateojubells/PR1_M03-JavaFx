@@ -83,7 +83,7 @@ public class TransactionList {
                 double amount = jsonObject.getJsonNumber("amount").doubleValue();
                 String description = jsonObject.getString("description");
 
-                Transaction transaction = new Transaction(category, amount, description, date);
+                Transaction transaction = new Transaction(0,category, amount, description, date);
                 allTransactions.add(transaction);
             }
         } catch (FileNotFoundException e) {

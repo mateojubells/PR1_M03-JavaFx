@@ -11,6 +11,7 @@
             <TableColumn fx:id="transactionColumn1" prefWidth="119.40000915527344" text="Amount" />
             <TableColumn fx:id="transactionColumn2" prefWidth="95.20001220703125" text="Category" />
             <TableColumn fx:id="transactionColumn3" prefWidth="95.20001220703125" text="Description" />
+            <TableColumn fx:id="transactionColumn4" prefWidth="95.20001220703125" text="Edit" />
          </columns>
       </TableView>
       <HBox alignment="CENTER" layoutX="48.0" layoutY="323.0" prefHeight="42.0" prefWidth="500.0">

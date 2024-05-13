@@ -27,6 +27,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableCell;
+import javafx.util.Callback;
+import javafx.scene.control.Button;
+
+
 public class DetallesController implements Initializable {
 
     public Button pieButton;
@@ -42,6 +48,9 @@ public class DetallesController implements Initializable {
     @FXML
     private TableColumn<Transaction, String> transactionColumn3;
 
+    @FXML
+    private TableColumn<Transaction, Void> transactionColumn4;
+
     // Transaction list to store loaded transactions
     private final ObservableList<Transaction> transactions = FXCollections.observableArrayList();
 
@@ -52,11 +61,65 @@ public class DetallesController implements Initializable {
         transactionColumn1.setCellValueFactory(new PropertyValueFactory<>("Amount"));
         transactionColumn2.setCellValueFactory(new PropertyValueFactory<>("Category"));
         transactionColumn3.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        transactionColumn4.setCellValueFactory(new PropertyValueFactory<>("Edit"));
 
         loadTransactionsFromDatabase(); // Cargar transacciones desde la base de datos
 
         detallesTable.setItems(transactions);
+        Callback<TableColumn<Transaction, Void>, TableCell<Transaction, Void>> cellFactory =
+                new Callback<>() {
+                    @Override
+                    public TableCell<Transaction, Void> call(final TableColumn<Transaction, Void> param) {
+                        return new TableCell<Transaction, Void>() {
+                            private final Button btn = new Button("Edit");
+
+                            {
+                                btn.setOnAction(event -> {
+                                    Transaction transaction = getTableView().getItems().get(getIndex());
+                                    abrirFormularioEdicion(transaction);
+                                });
+                            }
+
+                            @Override
+                            protected void updateItem(Void item, boolean empty) {
+                                super.updateItem(item, empty);
+                                if (empty) {
+                                    setGraphic(null);
+                                } else {
+                                    setGraphic(btn);
+                                }
+                            }
+                        };
+                    }
+                };
+
+        transactionColumn4.setCellFactory(cellFactory);
     }
+
+    private void abrirFormularioEdicion(Transaction transaction) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("edit-transaction.fxml"));
+            Parent root = loader.load();
+
+            // Obtener el controlador y pasarle la transacción a editar
+            TransactionController transactionController = loader.getController();
+            transactionController.setTransaction(transaction);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Editar Transacción");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+
 
     // Método para cargar transacciones desde la base de datos
     private void loadTransactionsFromDatabase() {
@@ -82,20 +145,18 @@ public class DetallesController implements Initializable {
         ResultSet resultSet = null;
 
         try {
-            // Obtener la conexión
             connection = ConnectDB.getInstance();
 
             // Preparar la consulta para obtener todas las transacciones
-            String query = "SELECT * FROM transactions";
+            String query = "SELECT id, category, amount, description, date FROM transactions";  // Incluye el campo 'id'
             statement = connection.prepareStatement(query);
 
-            // Ejecutar la consulta y obtener el resultado
             resultSet = statement.executeQuery();
 
             // Procesar el resultado
             while (resultSet.next()) {
+                int id = resultSet.getInt("id");  // Obtener el ID
                 String category = resultSet.getString("category");
-                // Si la categoría está vacía, establecerla en un espacio en blanco
                 if (category == null || category.isEmpty()) {
                     category = " ";
                 }
@@ -103,25 +164,25 @@ public class DetallesController implements Initializable {
                 String description = resultSet.getString("description");
                 LocalDate date = resultSet.getDate("date").toLocalDate();
 
-                // Crear una nueva transacción y agregarla a la lista
-                Transaction transaction = new Transaction(category, amount, description, date);
+                Transaction transaction = new Transaction(id, category, amount, description, date);  // Agregar ID
                 transactions.add(transaction);
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
-            try {
-                // Cerrar el conjunto de resultados
-                if (resultSet != null) {
+            if (resultSet != null) {
+                try {
                     resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
-
-                // Cerrar la declaración
-                if (statement != null) {
+            }
+            if (statement != null) {
+                try {
                     statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
             }
         }
         return transactions;
