@@ -30,11 +30,51 @@ public class TransactionController {
     @FXML
     private ComboBox<String> categoryComboBox;
 
+    private Transaction transaction;
+
     private ObservableList<String> categoryNames = FXCollections.observableArrayList();
     private TransactionDAO transactionDAO;
 
     public TransactionController() {
         this.transactionDAO = new TransactionDAOImpl();
+    }
+
+    public void setTransaction(Transaction transaction) {
+        this.transaction = transaction;
+        cargarDatosTransaccion();
+    }
+
+    private void cargarDatosTransaccion() {
+        if (transaction != null) {
+            datePicker.setValue(transaction.getDate());
+            amountField.setText(Double.toString(transaction.getAmount()));
+            descriptionField.setText(transaction.getDescription());
+            categoryComboBox.setValue(transaction.getCategory());
+        }
+    }
+
+    @FXML
+    private void guardarCambios() {
+        LocalDate date = datePicker.getValue();
+        double amount = Double.parseDouble(amountField.getText());
+        String description = descriptionField.getText();
+        String category = categoryComboBox.getValue();
+
+        transaction.setDate(date);
+        transaction.setAmount(amount);
+        transaction.setDescription(description);
+        transaction.setCategory(category);
+
+        // Actualizar la base de datos
+        TransactionDAO transactionDAO = new TransactionDAOImpl();
+        transactionDAO.updateTransaction(transaction);
+
+        cerrarVentana();
+    }
+
+    private void cerrarVentana() {
+        Stage stage = (Stage) datePicker.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
@@ -60,7 +100,7 @@ public class TransactionController {
             }
 
             // Crear una nueva transacción
-            Transaction transaction = new Transaction(category, amount, description, date);
+            Transaction transaction = new Transaction(0,category, amount, description, date);
 
             // Guardar la transacción utilizando el DAO
             transactionDAO.saveTransaction(transaction);
@@ -97,7 +137,6 @@ public class TransactionController {
             e.printStackTrace();
         }
     }
-
 
     @FXML
     private void openNewCategory() {
@@ -141,4 +180,6 @@ public class TransactionController {
             e.printStackTrace();
         }
     }
+
+
 }

@@ -15,37 +15,98 @@ public class TransactionDAOImpl implements TransactionDAO {
         PreparedStatement statement = null;
 
         try {
-            // Obtener la conexión
             connection = ConnectDB.getInstance();
 
-            // Crear la tabla si no existe
-            createTableIfNotExists(connection);
-
-            // Preparar la consulta para insertar la transacción
             String query = "INSERT INTO transactions (category, amount, description, date) VALUES (?, ?, ?, ?)";
+            statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, transaction.getCategory());
+            statement.setDouble(2, transaction.getAmount());
+            statement.setString(3, transaction.getDescription());
+            statement.setDate(4, java.sql.Date.valueOf(transaction.getDate()));
+
+            // Ejecutar la inserción
+            statement.executeUpdate();
+
+            // Obtener el ID generado
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                int generatedId = generatedKeys.getInt(1);
+                transaction.setId(generatedId);  // Asignar el ID a la transacción
+            }
+
+            generatedKeys.close();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void updateTransaction(Transaction transaction) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+            connection = ConnectDB.getInstance();
+
+            String query = "UPDATE transactions SET category = ?, amount = ?, description = ?, date = ? WHERE id = ?";
             statement = connection.prepareStatement(query);
             statement.setString(1, transaction.getCategory());
             statement.setDouble(2, transaction.getAmount());
             statement.setString(3, transaction.getDescription());
             statement.setDate(4, java.sql.Date.valueOf(transaction.getDate()));
+            statement.setInt(5, transaction.getId()); // Suponiendo que hay un campo `id` en Transaction
+
+            statement.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void deleteTransaction(int transactionId){
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+            connection = ConnectDB.getInstance();
+
+            // Preparar la consulta para eliminar la transacción por su ID
+            String query = "DELETE FROM transactions WHERE id = ?";
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, transactionId);
 
             // Ejecutar la consulta
             statement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
-            try {
-                // Cerrar la declaración
-                if (statement != null) {
+            if (statement != null) {
+                try {
                     statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
             }
         }
     }
 
-    @Override
+
+
     public List<Transaction> getAllTransactions() {
         List<Transaction> transactions = new ArrayList<>();
         Connection connection = null;
@@ -53,20 +114,18 @@ public class TransactionDAOImpl implements TransactionDAO {
         ResultSet resultSet = null;
 
         try {
-            // Obtener la conexión
             connection = ConnectDB.getInstance();
 
             // Preparar la consulta para obtener todas las transacciones
-            String query = "SELECT * FROM transactions";
+            String query = "SELECT id, category, amount, description, date FROM transactions";  // Incluye el campo 'id'
             statement = connection.prepareStatement(query);
 
-            // Ejecutar la consulta y obtener el resultado
             resultSet = statement.executeQuery();
 
             // Procesar el resultado
             while (resultSet.next()) {
+                int id = resultSet.getInt("id");  // Obtener el ID
                 String category = resultSet.getString("category");
-                // Si la categoría está vacía, establecerla en un espacio en blanco
                 if (category == null || category.isEmpty()) {
                     category = " ";
                 }
@@ -74,31 +133,29 @@ public class TransactionDAOImpl implements TransactionDAO {
                 String description = resultSet.getString("description");
                 LocalDate date = resultSet.getDate("date").toLocalDate();
 
-                // Crear una nueva transacción y agregarla a la lista
-                Transaction transaction = new Transaction(category, amount, description, date);
+                Transaction transaction = new Transaction(id, category, amount, description, date);  // Agregar ID
                 transactions.add(transaction);
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
-            try {
-                // Cerrar el conjunto de resultados
-                if (resultSet != null) {
+            if (resultSet != null) {
+                try {
                     resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
-
-                // Cerrar la declaración
-                if (statement != null) {
+            }
+            if (statement != null) {
+                try {
                     statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
             }
         }
-
         return transactions;
     }
-
 
 
     // Método para crear la tabla si no existe
@@ -116,4 +173,9 @@ public class TransactionDAOImpl implements TransactionDAO {
             e.printStackTrace();
         }
     }
+
+
+
+
+
 }

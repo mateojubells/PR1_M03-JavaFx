@@ -1,37 +1,31 @@
 package com.example.pr1_m03;
 
 import java.time.LocalDate;
-import javafx.beans.property.*;
 
 public class Transaction {
+    private int id;
+    private String category;
+    private double amount;
+    private String description;
+    private LocalDate date;
 
-    public String category;
-    public double amount;
-    public String description;
-    public LocalDate date;
-
-    public Transaction( String category, double amount, String description, LocalDate date) {
+    public Transaction(int id, String category, double amount, String description, LocalDate date) {
+        this.id = id;  // Establecer el ID
         this.category = category;
         this.amount = amount;
         this.description = description;
         this.date = date;
-
     }
 
-    public Transaction(String category, double amount, String description) {
-        this.category = category;
-        this.amount = amount;
-        this.description = description;
-    }
+
 
     // Getters y setters
-
-    public LocalDate getDate() {
-        return date;
+    public int getId() {  // Getter para el ID
+        return id;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setId(int id) {  // Setter para el ID (si es necesario)
+        this.id = id;
     }
 
     public String getCategory() {
@@ -50,6 +44,14 @@ public class Transaction {
         this.amount = amount;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -58,11 +60,9 @@ public class Transaction {
         this.description = description;
     }
 
-    // Método toString para representar el gasto como una cadena
-
-
     @Override
     public String toString() {
-        return String.format("Date: [%s], Type: %s, %.2f USD, Description: %s", date, category, amount, description);
+        return String.format("ID: %d, Date: [%s], Category: %s, Amount: %.2f, Description: %s",
+                id, date, category, amount, description);
     }
 }
